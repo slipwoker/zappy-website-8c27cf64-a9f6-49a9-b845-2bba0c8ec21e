@@ -1,0 +1,55 @@
+# Business — Generative Engine Optimization Map
+
+---
+
+## Pages
+
+### Home
+https://example.com
+Need fast garage door repair in Austin TX? Irongate&#39;s local techs fix springs, openers &amp; panels same-day. Serving 50+ neighborhoods. Call now for a free quote!
+
+### Services
+https://example.com/garage-door-services-austin-tx/
+From snapped springs to full door installations, Irongate covers every garage door service Austin homeowners need. Expert repairs, transparent pricing, zero surprises.
+
+### Service Areas
+https://example.com/austin-neighborhood-garage-door-service-areas/
+Irongate Garage Door serves 100+ Austin neighborhoods within 50 miles of downtown. Find your area and meet the local tech who knows your streets, homes, and doors.
+
+### Neighborhood Page Template (Instantiated 100x)
+https://example.com/austin-tx/[neighborhood]-garage-door-repair/
+Irongate&#39;s [Neighborhood] garage door tech is minutes away and ready to fix springs, cables &amp; openers fast. See real neighbor reviews and book same-day service today.
+
+### Reviews and Proof
+https://example.com/austin-garage-door-reviews/
+See why hundreds of Austin homeowners trust Irongate Garage Door. Browse verified reviews from your neighbors and discover the 5-star service that keeps them calling back.
+
+### Contact
+https://example.com/contact-irongate-garage-door/
+Broken door? Don&#39;t wait. Contact Irongate Garage Door for emergency garage door repair in Austin and get a fast, free estimate from a trusted local tech near you now.
+
+## Legal & Policy
+
+### Privacy Policy
+https://example.com/privacy
+Information about how user data is collected, stored, and protected.
+
+### Terms & Conditions
+https://example.com/terms
+Legal terms describing service usage, rights, and policies.
+
+### Accessibility Statement
+https://example.com/accessibility
+Information about WCAG compliance and accessibility features.
+
+---
+
+# Business Context (for LLM understanding)
+
+## About Business
+---
+
+# Additional Resources
+
+- **Sitemap**: https://example.com/sitemap.xml
+- **Robots.txt**: https://example.com/robots.txt

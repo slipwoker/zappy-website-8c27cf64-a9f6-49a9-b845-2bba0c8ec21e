@@ -1,0 +1,23 @@
+# Clean URL redirects for Render static hosting
+# Generated: 2026-03-25T05:18:32.499Z
+# NOTE: Render uses render.yaml for routing, not _redirects (that is Netlify)
+# This file is kept for reference only
+
+/garage-door-services-austin-tx/  /garage-door-services-austin-tx.html  200!
+/austin-neighborhood-garage-door-service-areas/  /austin-neighborhood-garage-door-service-areas.html  200!
+/austin-tx/[neighborhood]-garage-door-repair/  /austin-tx/neighborhood-garage-door-repair.html  200!
+/austin-garage-door-reviews/  /austin-garage-door-reviews.html  200!
+/contact-irongate-garage-door/  /contact-irongate-garage-door.html  200!
+/privacy  /privacy.html  200!
+/accessibility  /accessibility.html  200!
+/terms  /terms.html  200!
+
+# Legal pages - redirect old .html URLs to friendly URLs
+/privacy.html  /privacy  301
+/accessibility.html  /accessibility  301
+/terms.html  /terms  301
+
+/  /index.html  200!
+
+# SPA fallback - serve index.html for all unmatched routes
+/*  /index.html  200

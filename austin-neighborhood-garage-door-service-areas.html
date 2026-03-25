@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>Your Neighborhood, Our Backyard — Irongate Garage Door</title>
+    <meta name="description" content="Irongate Garage Door serves 100+ Austin neighborhoods within 50 miles of downtown. Find your area and meet the local tech who knows your streets, homes, and doors.">
+    <meta name="keywords" content="Austin garage door service areas, garage door repair near me Austin, broken garage door spring repair Cedar Park, local garage door technician Austin, garage door repair Austin TX">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Zappy Analytics -->
+<script>
+(function() {
+  'use strict';
+  
+  // Configuration
+  var config = {
+    websiteId: '8c27cf64-a9f6-49a9-b845-2bba0c8ec21e',
+    apiUrl: 'https://api.zappy5.com/api/analytics/track',
+    sessionDuration: 30 * 60 * 1000, // 30 minutes
+    visitorDuration: 30 * 24 * 60 * 60 * 1000, // 30 days
+    trackPageViews: true,
+    trackClicks: true,
+    trackFormSubmissions: true
+  };
+  
+  // Generate or retrieve persistent visitor ID (30 days)
+  function getVisitorId() {
+    var visitorKey = 'zappy_visitor_' + config.websiteId;
+    var visitor = null;
+    
+    try {
+      visitor = localStorage.getItem(visitorKey);
+      if (visitor) {
+        var visitorData = JSON.parse(visitor);
+        var now = Date.now();
+        
+        // Check if visitor ID is still valid (30 days)
+        if (now - visitorData.created < config.visitorDuration) {
+          // Update last seen timestamp
+          visitorData.lastSeen = now;
+          localStorage.setItem(visitorKey, JSON.stringify(visitorData));
+          return visitorData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: LocalStorage not available');
+    }
+    
+    // Generate new visitor ID
+    var newVisitorId = 'zv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      localStorage.setItem(visitorKey, JSON.stringify({
+        id: newVisitorId,
+        created: Date.now(),
+        lastSeen: Date.now()
+      }));
+    } catch (e) {
+      // Continue without local storage
+    }
+    
+    return newVisitorId;
+  }
+  
+  // Generate or retrieve session ID (30 minutes)
+  function getSessionId() {
+    var sessionKey = 'zappy_session_' + config.websiteId;
+    var session = null;
+    
+    try {
+      session = sessionStorage.getItem(sessionKey);
+      if (session) {
+        var sessionData = JSON.parse(session);
+        var now = Date.now();
+        
+        // Check if session is still valid
+        if (now - sessionData.timestamp < config.sessionDuration) {
+          // Update timestamp
+          sessionData.timestamp = now;
+          sessionStorage.setItem(sessionKey, JSON.stringify(sessionData));
+          return sessionData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: SessionStorage not available');
+    }
+    
+    // Generate new session ID
+    var newSessionId = 'zs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      sessionStorage.setItem(sessionKey, JSON.stringify({
+        id: newSessionId,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      // Continue without session storage
+    }
+    
+    return newSessionId;
+  }
+  
+  var visitorId = getVisitorId();
+  var sessionId = getSessionId();
+  
+  // Track an event
+  function trackEvent(eventType, data) {
+    data = data || {};
+    
+    var eventData = {
+      website_id: config.websiteId,
+      event_type: eventType,
+      page_path: window.location.pathname,
+      referrer: document.referrer || 'direct',
+      visitor_id: visitorId,
+      session_id: sessionId,
+      metadata: data
+    };
+    
+    // Use sendBeacon if available (better for page unload events)
+    if (navigator.sendBeacon) {
+      var blob = new Blob([JSON.stringify(eventData)], { type: 'application/json' });
+      navigator.sendBeacon(config.apiUrl, blob);
+    } else {
+      // Fallback to fetch
+      fetch(config.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventData),
+        keepalive: true
+      }).catch(function(error) {
+        console.warn('Zappy Analytics: Failed to track event', error);
+      });
+    }
+  }
+  
+  // Track page view
+  if (config.trackPageViews) {
+    trackEvent('pageview', {
+      title: document.title,
+      url: window.location.href
+    });
+  }
+  
+  // Track clicks on important elements
+  if (config.trackClicks) {
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      
+      // Track button clicks (counted as actions)
+      if (target.tagName === 'BUTTON' || target.closest('button')) {
+        var button = target.tagName === 'BUTTON' ? target : target.closest('button');
+        trackEvent('click', {
+          element: 'button',
+          text: button.textContent.trim().substring(0, 100),
+          id: button.id || null,
+          class: button.className || null
+        });
+      }
+      
+      // Track link clicks (navigation - not counted as actions)
+      else if (target.tagName === 'A' || target.closest('a')) {
+        var link = target.tagName === 'A' ? target : target.closest('a');
+        trackEvent('navigation', {
+          element: 'link',
+          text: link.textContent.trim().substring(0, 100),
+          href: link.href,
+          external: link.hostname !== window.location.hostname
+        });
+      }
+    }, true);
+  }
+  
+  // Track form submissions
+  if (config.trackFormSubmissions) {
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      
+      trackEvent('form_submit', {
+        form_id: form.id || null,
+        form_name: form.name || null,
+        form_action: form.action || null,
+        form_method: form.method || 'GET'
+      });
+    }, true);
+  }
+  
+  // Track time on page (send on page unload)
+  var pageLoadTime = Date.now();
+  
+  window.addEventListener('beforeunload', function() {
+    var timeOnPage = Math.floor((Date.now() - pageLoadTime) / 1000); // in seconds
+    
+    trackEvent('page_unload', {
+      time_on_page: timeOnPage,
+      page_path: window.location.pathname
+    });
+  });
+  
+  // Expose tracking function globally for custom events
+  window.zappyAnalytics = {
+    track: trackEvent,
+    getVisitorId: function() { return visitorId; },
+    getSessionId: function() { return sessionId; }
+  };
+  
+})();
+</script>
+<!-- End Zappy Analytics -->
+    <meta property="og:title" content="Your Neighborhood, Our Backyard — Irongate Garage Door">
+  <meta property="og:description" content="Irongate Garage Door serves 100+ Austin neighborhoods within 50 miles of downtown. Find your area and meet the local tech who knows your streets, homes, and doors.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Your Neighborhood, Our Backyard — Irongate Garage Door">
+  <meta name="twitter:description" content="Irongate Garage Door serves 100+ Austin neighborhoods within 50 miles of downtown. Find your area and meet the local tech who knows your streets, homes, and doors.">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Cookie Consent -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
+    <!-- Mickidum Accessibility Toolbar -->
+    <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
+
+    <style id="zappy-dropdown-submenu-styles">
+      /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
+      /* Base styles for dropdown submenus - parent must be positioned */
+      .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { position: relative; }
+      /* Submenu base - hidden by default */
+      .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { display: block !important; position: absolute !important; top: 100%; left: 0; min-width: 220px; background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); padding: 8px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1000; list-style: none; pointer-events: none; }
+      /* CRITICAL: Desktop hover styles to show dropdown */
+      .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Submenu item styling */
+      .sub-menu li { list-style: none; margin: 0; padding: 0; }
+      .sub-menu a { display: block !important; padding: 10px 16px !important; color: var(--text-dark, #333) !important; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.2s; }
+      .sub-menu a:hover { background-color: #f5f5f5; }
+      /* RTL (Hebrew/Arabic) dropdown positioning */
+      [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
+      /* Hide empty dropdown menus */
+      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))), .sub-menu:not(:has(li)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+      /* Desktop: show submenu on Menu Group hover */
+      li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Menu Group title styling */
+      .nav-menu > li > .menu-group-title, #navMenu > li > .menu-group-title { display: inline-block; padding: 0.5rem 1rem; cursor: default; user-select: none; }
+      
+      /* ========== MOBILE SUBMENU STYLES ========== */
+      @media (max-width: 768px) {
+        .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
+        .sub-menu.mobile-expanded { max-height: 500px !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
+        [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
+        /* Disable hover behavior on mobile */
+        .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
+        .nav-menu li > .sub-menu.mobile-expanded, nav li > .sub-menu.mobile-expanded, .navbar li > .sub-menu.mobile-expanded, #navMenu li > .sub-menu.mobile-expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { display: flex !important; flex-wrap: wrap !important; align-items: center !important; position: relative !important; min-height: 44px !important; }
+        .nav-menu li:has(.sub-menu) > a, nav li:has(.sub-menu) > a, .navbar li:has(.sub-menu) > a, #navMenu li:has(.sub-menu) > a { flex: 1 !important; min-width: 0 !important; }
+        .nav-menu li:has(.sub-menu) > .menu-group-title, nav li:has(.sub-menu) > .menu-group-title, .navbar li:has(.sub-menu) > .menu-group-title, #navMenu li:has(.sub-menu) > .menu-group-title { flex: 1 !important; min-width: 0 !important; padding: 0 !important; line-height: inherit !important; }
+        .nav-menu li:has(.sub-menu) > .sub-menu, nav li:has(.sub-menu) > .sub-menu, .navbar li:has(.sub-menu) > .sub-menu, #navMenu li:has(.sub-menu) > .sub-menu { flex-basis: 100% !important; width: 100% !important; }
+        .nav-menu li:has(.sub-menu) > a [class*="chevron"], .nav-menu li:has(.sub-menu) > a [class*="arrow"], .nav-menu li:has(.sub-menu) > a .fa-chevron-down, .nav-menu li:has(.sub-menu) > a .fa-angle-down, nav li:has(.sub-menu) > a [class*="chevron"], nav li:has(.sub-menu) > a [class*="arrow"], #navMenu li:has(.sub-menu) > a [class*="chevron"], #navMenu li:has(.sub-menu) > a [class*="arrow"] { display: none !important; visibility: hidden !important; }
+        .mobile-submenu-toggle { display: flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: auto !important; background: transparent !important; border: none !important; cursor: pointer !important; color: var(--text-dark) !important; position: static !important; flex-shrink: 0 !important; align-self: stretch !important; z-index: 2 !important; padding: 0 !important; margin: 0 !important; }
+        .mobile-submenu-toggle::after { content: '' !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 7px solid currentColor !important; transition: transform 0.3s ease !important; }
+        .mobile-submenu-toggle.expanded::after { transform: rotate(180deg) !important; }
+        .sub-menu a { padding: 10px 0 !important; display: block !important; color: var(--text-dark) !important; }
+        .navbar .sub-menu li a, nav.navbar .sub-menu li a, .zappy-products-dropdown .sub-menu a { color: var(--text-dark) !important; }
+      }
+      @media (min-width: 769px) { .mobile-submenu-toggle { display: none !important; } }
+    </style>
+
+    <style id="mobile-lang-menu-deployed-css">
+    @media (max-width: 768px) {
+      .lang-switcher,
+      .nav-cta-container .lang-switcher,
+      .nav-container .lang-switcher,
+      .navbar .lang-switcher,
+      .navbar .nav-cta-container .lang-switcher,
+      .nav-icons-left .lang-switcher,
+      .nav-ecommerce-icons .lang-switcher { display: none !important; }
+      .mobile-lang-menu { width: 100%; border-top: 1px solid rgba(128,128,128,0.2); padding: 8px 0 0 0; margin-top: 8px; }
+      .mobile-lang-toggle { display: flex !important; align-items: center; justify-content: space-between; width: 100%; padding: 12px 16px; background: none; border: none; cursor: pointer; font-size: 15px; color: inherit; font-family: inherit; }
+      .mobile-lang-toggle::after { content: ''; display: inline-block; width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform 0.3s ease; margin-left: 8px; }
+      .mobile-lang-toggle.expanded::after { transform: rotate(-135deg); }
+      .mobile-lang-options { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+      .mobile-lang-options.expanded { max-height: 300px; }
+      .mobile-lang-option { display: flex !important; align-items: center; gap: 10px; padding: 10px 24px; text-decoration: none; color: inherit; font-size: 14px; font-family: inherit; }
+      .mobile-lang-option:hover { background: rgba(128,128,128,0.1); }
+      .mobile-lang-option.active { font-weight: 600; opacity: 0.7; pointer-events: none; }
+      .mobile-lang-option img { width: 20px; height: 20px; border-radius: 50%; }
+    }
+    @media (min-width: 769px) {
+      .mobile-lang-menu { display: none !important; }
+    }
+    </style>
+
+    <style id="zappy-widget-visibility">
+      #mic-access-tool-general-button, .mic-access-tool-general-button,
+      #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+      ._access-icon, #mic-access-tool-box, .mic-access-tool-box,
+      #mic-init-access-tool #mic-access-tool-box, div[id*="mic-access-tool-box"], ._access-menu {
+        display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important;
+      }
+    </style>
+</head>
+<body>
+
+  <nav class="navbar">
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+  </button>
+
+  <button class="phone-header-btn" data-phone="[business_phone]" aria-label="Call">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+  </button>
+
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a href="/" class="logo-link">
+        <img src="/assets/irongate-garage-door-home-services-garage-door-logo.webp" alt="Irongate Garage Door" class="logo" />
+      </a>
+    </div>
+
+    <ul class="nav-menu" id="navMenu"><li><a href="/garage-door-services-austin-tx">Services</a></li><li><a href="/austin-neighborhood-garage-door-service-areas">Service Areas</a></li><li><a href="/austin-tx/[neighborhood]-garage-door-repair">Neighborhood Page Template (Instantiated 100x)</a></li><li><a href="/austin-garage-door-reviews">Reviews &amp; Proof</a></li></ul>
+
+    <div class="nav-cta-container">
+      <a href="/contact-irongate-garage-door" class="nav-cta-btn">Contact</a>
+    </div>
+  </div>
+</nav>
+<script>
+
+// Navbar Mobile Menu Toggle and Contrast Fix
+(function() {
+  // Use 'load' event instead of 'DOMContentLoaded' to ensure we run AFTER all other scripts
+  window.addEventListener('load', function() {
+    
+    // FIX MOBILE BUTTON CONTRAST
+    // Detect navbar background color and apply contrasting color to mobile buttons
+    const navbar = document.querySelector('.navbar, nav, header');
+    if (!navbar) {
+      console.log('[Navbar] Navbar element not found');
+      return;
+    }
+    
+    // DECLARE VARIABLES EARLY to avoid Temporal Dead Zone errors
+    // These are used in multiple places below
+    let mobileToggle = document.getElementById('mobileToggle') ||
+                       document.querySelector('.mobile-toggle') ||
+                       document.querySelector('.hamburger') ||
+                       document.querySelector('.hamburger-menu') ||
+                       document.querySelector('.menu-toggle') ||
+                       document.querySelector('.burger-menu') ||
+                       document.querySelector('[aria-label="Menu"]') ||
+                       document.querySelector('[aria-label="תפריט"]');
+    
+    const phoneBtn = document.querySelector('.phone-header-btn');
+    
+    const computedStyle = window.getComputedStyle(navbar);
+    let bgColor = computedStyle.backgroundColor;
+    
+    console.log('[Navbar] Initial navbar background:', bgColor);
+    
+    // Check if background is transparent or rgba with 0 alpha
+    const isTransparent = bgColor === 'transparent' || 
+                         bgColor === 'rgba(0, 0, 0, 0)' ||
+                         (bgColor.startsWith('rgba') && bgColor.includes(', 0)'));
+    
+    if (isTransparent) {
+      // Check for background-image or gradient
+      const bgImage = computedStyle.backgroundImage;
+      if (bgImage && bgImage !== 'none') {
+        console.log('[Navbar] Navbar has background image/gradient, using dark text');
+        bgColor = 'rgb(240, 240, 240)'; // Assume light background
+      } else {
+        // Transparent navbar - check body background
+        const bodyBg = window.getComputedStyle(document.body).backgroundColor;
+        console.log('[Navbar] Navbar transparent, using body background:', bodyBg);
+        bgColor = bodyBg;
+      }
+    }
+    
+    // Calculate luminance to determine if background is light or dark
+    const rgb = bgColor.match(/\d+/g);
+    if (rgb && rgb.length >= 3) {
+      const r = parseInt(rgb[0]);
+      const g = parseInt(rgb[1]);
+      const b = parseInt(rgb[2]);
+      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+      
+      // Mobile button colors are set by Claude's AI-generated CSS (same as .nav-menu a)
+      // No dynamic color overrides needed - colors come from the generated navbar CSS
+      console.log('[Navbar] Mobile button colors preserved from Claude CSS (luminance:', luminance.toFixed(2) + ')');
+      
+      // FIX ICON SIZES - Ensure SVGs are properly sized and visible
+      // INJECT CRITICAL CSS TO OVERRIDE ANY CONFLICTING RULES
+      const criticalCSS = document.createElement('style');
+      criticalCSS.id = 'zappy-mobile-nav-fix';
+      const htmlLang = document.documentElement.lang || 'en';
+      const htmlDir = document.documentElement.dir || 'ltr';
+      // Check both dir attribute AND lang for RTL detection
+      // dir="rtl" is the most reliable indicator
+      const isRTL = htmlDir === 'rtl' || htmlLang === 'he' || htmlLang === 'ar';
+      
+      criticalCSS.textContent = `
+        /* Hide mobile buttons on desktop, show only on mobile */
+        @media (min-width: 769px) {
+          .mobile-toggle,
+          .phone-header-btn {
+            display: none !important;
+          }
+        }
+        
+        /* Show and position mobile buttons correctly on mobile */
+        @media (max-width: 768px) {
+          .mobile-toggle,
+          .phone-header-btn {
+            position: absolute !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            z-index: 1001 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 50% !important;
+            border: none !important;
+            cursor: pointer !important;
+            padding: 6px !important;
+            background: none !important;
+            color: var(--nav-text, var(--text-dark)) !important;
+          }
+          
+          /* LTR positioning (default): hamburger LEFT, phone RIGHT */
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .mobile-toggle,
+          html[dir="ltr"] .mobile-toggle {
+            left: 12px !important;
+            right: auto !important;
+          }
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .phone-header-btn,
+          html[dir="ltr"] .phone-header-btn {
+            right: 12px !important;
+            left: auto !important;
+          }
+          
+          /* RTL positioning: hamburger RIGHT, phone LEFT */
+          html[dir="rtl"] .mobile-toggle,
+          html[lang="he"] .mobile-toggle,
+          html[lang="ar"] .mobile-toggle {
+            right: 12px !important;
+            left: auto !important;
+          }
+          html[dir="rtl"] .phone-header-btn,
+          html[lang="he"] .phone-header-btn,
+          html[lang="ar"] .phone-header-btn {
+            left: 12px !important;
+            right: auto !important;
+          }
+          
+          /* CRITICAL: Ensure nav-container has min-height on mobile */
+          /* All children are positioned absolutely/fixed on mobile, so height:auto collapses to 0 */
+          .nav-container {
+            min-height: 70px !important;
+            position: relative !important;
+          }
+          
+          /* Ensure SVG icons are properly sized and inherit color */
+          .mobile-toggle svg,
+          .phone-header-btn svg {
+            width: 24px !important;
+            height: 24px !important;
+            /* Don't force display - let JavaScript control hamburger/close toggle */
+          }
+          
+          /* Reset nav-cta-container on mobile - remove desktop box-shadow/padding */
+          /* that creates a visible ghost box when CTA button is hidden */
+          .nav-cta-container {
+            box-shadow: none !important;
+            padding: 0 !important;
+          }
+          
+          /* Hide nav-cta-container entirely on mobile when there's no lang-switcher */
+          /* (only the CTA button is inside, and it's hidden on mobile) */
+          .nav-cta-container:not(:has(.lang-switcher)) {
+            display: none !important;
+          }
+          
+          /* CRITICAL: Prevent hero image fade gradient from bleeding over headline text */
+          /* The .image-fade-gradient has bottom: -30px (extends below parent) */
+          /* On mobile stacked layout, this overlaps the h1 text below the image */
+          .hero-image-column {
+            overflow: hidden !important;
+          }
+          .image-fade-gradient {
+            bottom: 0 !important;
+          }
+          
+          /* Hide desktop language switcher on mobile - hamburger menu handles it */
+          /* High specificity to override stored CSS */
+          .lang-switcher,
+          .nav-cta-container .lang-switcher,
+          .nav-container .lang-switcher,
+          .navbar .lang-switcher,
+          .navbar .nav-cta-container .lang-switcher {
+            display: none !important;
+          }
+        }
+      `;
+      
+      // Remove existing fix if present and inject new one
+      const existing = document.getElementById('zappy-mobile-nav-fix');
+      if (existing) existing.remove();
+      document.head.appendChild(criticalCSS);
+      
+      console.log('[Navbar] Critical CSS injected for mobile nav positioning');
+      
+      // ONLY apply inline positioning styles on mobile viewport
+      // On desktop, the CSS handles hiding these buttons with display: none
+      // Inline styles were breaking desktop layout by overriding CSS
+      const isMobileViewport = window.innerWidth <= 768;
+      
+      if (mobileToggle) {
+        // Icon sizing applies to all viewports for consistency
+        const hamburgerIcon = mobileToggle.querySelector('.hamburger-icon');
+        const closeIcon = mobileToggle.querySelector('.close-icon');
+        
+        if (hamburgerIcon) {
+          hamburgerIcon.style.setProperty('width', '24px', 'important');
+          hamburgerIcon.style.setProperty('height', '24px', 'important');
+          hamburgerIcon.style.setProperty('display', 'block', 'important'); // Show hamburger by default
+        }
+        if (closeIcon) {
+          closeIcon.style.setProperty('width', '24px', 'important');
+          closeIcon.style.setProperty('height', '24px', 'important');
+          closeIcon.style.setProperty('display', 'none', 'important'); // Hide close icon by default
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          mobileToggle.style.setProperty('position', 'absolute', 'important');
+          mobileToggle.style.setProperty('top', '50%', 'important');
+          mobileToggle.style.setProperty('transform', 'translateY(-50%)', 'important');
+          mobileToggle.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          
+          console.log('[Navbar] Mobile toggle positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          mobileToggle.style.removeProperty('position');
+          mobileToggle.style.removeProperty('top');
+          mobileToggle.style.removeProperty('transform');
+          mobileToggle.style.removeProperty('z-index');
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared mobile toggle inline positioning');
+        }
+      }
+      
+      if (phoneBtn) {
+        // Icon sizing applies to all viewports
+        const phoneIcon = phoneBtn.querySelector('svg');
+        if (phoneIcon) {
+          phoneIcon.style.width = '24px';
+          phoneIcon.style.height = '24px';
+          phoneIcon.setAttribute('width', '24');
+          phoneIcon.setAttribute('height', '24');
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          phoneBtn.style.setProperty('position', 'absolute', 'important');
+          phoneBtn.style.setProperty('top', '50%', 'important');
+          phoneBtn.style.setProperty('transform', 'translateY(-50%)', 'important');
+          phoneBtn.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          
+          console.log('[Navbar] Phone button positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          phoneBtn.style.removeProperty('position');
+          phoneBtn.style.removeProperty('top');
+          phoneBtn.style.removeProperty('transform');
+          phoneBtn.style.removeProperty('z-index');
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared phone button inline positioning');
+        }
+      }
+    } else {
+      console.log('[Navbar] Could not parse background color:', bgColor);
+    }
+    
+    // MOBILE MENU TOGGLE
+    // Re-query in case DOM changed (mobileToggle already declared at top of function)
+    mobileToggle = document.getElementById('mobileToggle') ||
+                   document.querySelector('.mobile-toggle') ||
+                   document.querySelector('.hamburger') ||
+                   document.querySelector('.hamburger-menu') ||
+                   document.querySelector('.menu-toggle') ||
+                   document.querySelector('.burger-menu') ||
+                   document.querySelector('[aria-label="Menu"]') ||
+                   document.querySelector('[aria-label="תפריט"]');
+    
+    // EXPANDED SEARCH: Find nav menu by ID or class
+    const navMenu = document.getElementById('navMenu') ||
+                  document.querySelector('.nav-menu') ||
+                  document.querySelector('.nav-links') ||
+                  document.querySelector('nav ul:not(.submenu)');
+    
+    if (!mobileToggle || !navMenu) {
+      console.log('[Navbar] Mobile toggle or menu not found:', { toggle: !!mobileToggle, menu: !!navMenu });
+      return;
+    }
+    
+    // Ensure navMenu has ID for CSS targeting
+    if (!navMenu.id) {
+      navMenu.id = 'navMenu';
+    }
+    
+    console.log('[Navbar] Initializing mobile menu...');
+    
+    // Remove any existing event listeners by cloning the button
+    const newToggle = mobileToggle.cloneNode(true);
+    mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
+    
+    // Toggle menu on button click - use newToggle now
+    newToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const hamburgerIcon = this.querySelector('.hamburger-icon');
+      const closeIcon = this.querySelector('.close-icon');
+      const isActive = navMenu.classList.contains('active');
+      
+      if (isActive) {
+        // Close menu
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed');
+      } else {
+        // Open menu
+        navMenu.classList.add('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'none', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'block', 'important');
+        document.body.style.overflow = 'hidden';
+        console.log('[Navbar] Menu opened');
+      }
+    });
+    
+    // Close menu when clicking nav links (but NOT dropdown toggles)
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        // Don't close if it's a dropdown child (unless it's a real navigation link)
+        if (this.getAttribute('href') === '#') return;
+        
+        const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+        const closeIcon = newToggle.querySelector('.close-icon');
+        
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed (link clicked)');
+      });
+    });
+    
+    // DROPDOWN MENU TOGGLE (for mobile and touch devices)
+    var dropdownToggles = navMenu.querySelectorAll('.dropdown-toggle');
+    dropdownToggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var parent = this.closest('.nav-dropdown');
+        if (!parent) return;
+        
+        // Close other open dropdowns at the same level
+        var siblings = parent.parentNode.querySelectorAll('.nav-dropdown.open');
+        siblings.forEach(function(sib) {
+          if (sib !== parent) sib.classList.remove('open');
+        });
+        
+        parent.classList.toggle('open');
+        console.log('[Navbar] Dropdown toggled:', parent.classList.contains('open') ? 'open' : 'closed');
+      });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-dropdown')) {
+        var openDropdowns = document.querySelectorAll('.nav-dropdown.open');
+        openDropdowns.forEach(function(dd) { dd.classList.remove('open'); });
+      }
+    });
+    
+    console.log('[Navbar] Dropdown handlers initialized for ' + dropdownToggles.length + ' dropdowns');
+    
+    // Phone button functionality (phoneBtn already declared at top of function)
+    if (phoneBtn) {
+      phoneBtn.addEventListener('click', function() {
+        // Get phone number from placeholder in page or use default
+        const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+        const phoneNumber = phoneLinks.length > 0 
+          ? phoneLinks[0].getAttribute('href').replace('tel:', '')
+          : '[business_phone]';
+        
+        window.location.href = 'tel:' + phoneNumber;
+        console.log('[Navbar] Phone button clicked');
+      });
+    }
+    
+    console.log('[Navbar] Mobile menu initialized successfully');
+    
+    // === WHATSAPP BUTTON VISIBILITY FIX ===
+    // Ensure WhatsApp floating button is hidden on desktop and visible on mobile
+    // IMPORTANT: Only target the floating button by its class, NOT generic wa.me links
+    const handleWhatsAppVisibility = function() {
+      const whatsappBtn = document.querySelector('.whatsapp-float');
+      if (whatsappBtn) {
+        const isDesktop = window.innerWidth >= 769;
+        if (isDesktop) {
+          whatsappBtn.style.setProperty('display', 'none', 'important');
+          whatsappBtn.style.setProperty('visibility', 'hidden', 'important');
+          whatsappBtn.style.setProperty('opacity', '0', 'important');
+          whatsappBtn.style.setProperty('pointer-events', 'none', 'important');
+          console.log('[WhatsApp] Button hidden on desktop');
+        } else {
+          whatsappBtn.style.removeProperty('display');
+          whatsappBtn.style.removeProperty('visibility');
+          whatsappBtn.style.removeProperty('opacity');
+          whatsappBtn.style.removeProperty('pointer-events');
+          console.log('[WhatsApp] Button visible on mobile');
+        }
+      }
+    };
+    
+    // Run on load
+    handleWhatsAppVisibility();
+    
+    // Run on resize with debouncing
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(handleWhatsAppVisibility, 100);
+    });
+  });
+})();
+
+</script>
+  
+  <main>
+    <section class="service-areas-intro-section" data-layout-spec="Service Areas-intro">
+  <div class="sai-container">
+    <div class="sai-text-block">
+      <div class="sai-eyebrow">
+        <span class="sai-eyebrow-line"></span>
+        <span class="sai-eyebrow-label">Austin, TX &amp; Surrounding Communities</span>
+        <span class="sai-eyebrow-line"></span>
+      </div>
+      <h1 class="sai-heading">Garage Door Repair &amp; Installation Across Austin's Neighborhoods</h1>
+      <p class="sai-lead">Irongate Garage Door publishes dedicated service pages for the 100 strongest local communities within a 50-mile radius of downtown Austin, TX. Each neighborhood page is built from the ground up — featuring repair context specific to that area's homes and garage styles, real photos from the neighborhood, an embedded map, and verified customer reviews from your actual neighbors.</p>
+      <p class="sai-body">Whether you're in Hyde Park, Cedar Park, Pflugerville, or South Congress, you'll find a page written by a technician who knows your streets. We don't do generic. Every page reflects the real conditions, common door brands, and local repair patterns we've seen working in that specific community — because that's exactly how we earn your trust before you ever pick up the phone.</p>
+      <div class="sai-trust-row">
+        <div class="sai-trust-item">
+          <i class="fa-solid fa-map-location-dot sai-trust-icon" aria-hidden="true"></i>
+          <div class="sai-trust-content">
+            <strong class="sai-trust-label">100 Neighborhood Pages</strong>
+            <span class="sai-trust-sub">Hyper-local content for every area</span>
+          </div>
+        </div>
+        <div class="sai-trust-divider" aria-hidden="true"></div>
+        <div class="sai-trust-item">
+          <i class="fa-solid fa-star sai-trust-icon" aria-hidden="true"></i>
+          <div class="sai-trust-content">
+            <strong class="sai-trust-label">Real Customer Reviews</strong>
+            <span class="sai-trust-sub">From verified Austin homeowners</span>
+          </div>
+        </div>
+        <div class="sai-trust-divider" aria-hidden="true"></div>
+        <div class="sai-trust-item">
+          <i class="fa-solid fa-location-crosshairs sai-trust-icon" aria-hidden="true"></i>
+          <div class="sai-trust-content">
+            <strong class="sai-trust-label">50-Mile Service Radius</strong>
+            <span class="sai-trust-sub">Downtown Austin &amp; all surrounding areas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <figure class="sai-image-block">
+      <img data-placeholder="service-areas-intro-image-1" data-context="Aerial or wide street-level panoramic view of Austin Texas neighborhoods — a warm, golden-hour cityscape showing a mix of residential streets with craftsman and ranch-style homes, mature oak trees, and the Austin skyline visible in the background. The image should feel local, lived-in, and authoritative — not a tourist postcard. Warm tones of amber, rust, and deep blue sky. Shot from a slightly elevated perspective to show the breadth of the community." width="1200" height="420" src="/assets/site-service-areas-intro-image-1.webp" alt="Austin TX neighborhoods served by Irongate Garage Door — 50-mile service radius from downtown" class="sai-image">
+      <figcaption class="sai-image-caption">
+        <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+        Serving Austin homeowners across 100+ neighborhoods — from the urban core to the outer suburbs
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="service-areas-directory-section" data-layout-spec="Service Areas-directory">
+  <div class="sad-container">
+
+    <div class="sad-header">
+      <h2 class="sad-main-title">Austin Service Areas</h2>
+      <p class="sad-subtitle">Irongate Garage Door provides expert garage door repair and installation across Austin, TX and every neighborhood within 50 miles of downtown. Click your neighborhood for local service details, real customer reviews, and same-day availability.</p>
+    </div>
+
+    <!-- CENTRAL AUSTIN -->
+    <div class="sad-cluster">
+      <div class="sad-cluster-header">
+        <span class="sad-cluster-icon"><i class="fas fa-map-marker-alt"></i></span>
+        <h3 class="sad-cluster-title">Central Austin</h3>
+        <span class="sad-cluster-count">18 neighborhoods</span>
+      </div>
+      <div class="sad-links-grid">
+        <a href="/service-areas/downtown-austin" class="sad-link">Downtown Austin</a>
+        <a href="/service-areas/hyde-park" class="sad-link">Hyde Park</a>
+        <a href="/service-areas/tarrytown" class="sad-link">Tarrytown</a>
+        <a href="/service-areas/clarksville" class="sad-link">Clarksville</a>
+        <a href="/service-areas/old-west-austin" class="sad-link">Old West Austin</a>
+        <a href="/service-areas/bouldin-creek" class="sad-link">Bouldin Creek</a>
+        <a href="/service-areas/central-east-austin" class="sad-link">Central East Austin</a>
+        <a href="/service-areas/cherrywood" class="sad-link">Cherrywood</a>
+        <a href="/service-areas/french-place" class="sad-link">French Place</a>
+        <a href="/service-areas/hancock" class="sad-link">Hancock</a>
+        <a href="/service-areas/rosedale" class="sad-link">Rosedale</a>
+        <a href="/service-areas/highland" class="sad-link">Highland</a>
+        <a href="/service-areas/upper-boggy-creek" class="sad-link">Upper Boggy Creek</a>
+        <a href="/service-areas/north-loop" class="sad-link">North Loop</a>
+        <a href="/service-areas/bryker-woods" class="sad-link">Bryker Woods</a>
+        <a href="/service-areas/pemberton-heights" class="sad-link">Pemberton Heights</a>
+        <a href="/service-areas/enfield" class="sad-link">Enfield</a>
+        <a href="/service-areas/judges-hill" class="sad-link">Judge's Hill</a>
+      </div>
+    </div>
+
+    <!-- NORTH AUSTIN -->
+    <div class="sad-cluster">
+      <div class="sad-cluster-header">
+        <span class="sad-cluster-icon"><i class="fas fa-map-marker-alt"></i></span>
+        <h3 class="sad-cluster-title">North Austin</h3>
+        <span class="sad-cluster-count">16 neighborhoods</span>
+      </div>
+      <div class="sad-links-grid">
+        <a href="/service-areas/allandale" class="sad-link">Allandale</a>
+        <a href="/service-areas/crestview" class="sad-link">Crestview</a>
+        <a href="/service-areas/brentwood" class="sad-link">Brentwood</a>
+        <a href="/service-areas/north-shoal-creek" class="sad-link">North Shoal Creek</a>
+        <a href="/service-areas/wooten" class="sad-link">Wooten</a>
+        <a href="/service-areas/rundberg" class="sad-link">Rundberg</a>
+        <a href="/service-areas/gracywoods" class="sad-link">Gracywoods</a>
+        <a href="/service-areas/north-austin-civic" class="sad-link">North Austin Civic</a>
+        <a href="/service-areas/Georgian Acres" class="sad-link">Georgian Acres</a>
+        <a href="/service-areas/angus-valley" class="sad-link">Angus Valley</a>
+        <a href="/service-areas/quail-creek" class="sad-link">Quail Creek</a>
+        <a href="/service-areas/wells-branch" class="sad-link">Wells Branch</a>
+        <a href="/service-areas/tech-ridge" class="sad-link">Tech Ridge</a>
+        <a href="/service-areas/parmer-village" class="sad-link">Parmer Village</a>
+        <a href="/service-areas/harris-branch" class="sad-link">Harris Branch</a>
+        <a href="/service-areas/pioneer-crossing" class="sad-link">Pioneer Crossing</a>
+      </div>
+    </div>
+
+    <!-- SOUTH AUSTIN -->
+    <div class="sad-cluster">
+      <div class="sad-cluster-header">
+        <span class="sad-cluster-icon"><i class="fas fa-map-marker-alt"></i></span>
+        <h3 class="sad-cluster-title">South Austin</h3>
+        <span class="sad-cluster-count">14 neighborhoods</span>
+      </div>
+      <div class="sad-links-grid">
+        <a href="/service-areas/south-lamar" class="sad-link">South Lamar</a>
+        <a href="/service-areas/south-congress" class="sad-link">South Congress</a>
+        <a href="/service-areas/travis-heights" class="sad-link">Travis Heights</a>
+        <a href="/service-areas/zilker" class="sad-link">Zilker</a>
+        <a href="/service-areas/barton-hills" class="sad-link">Barton Hills</a>
+        <a href="/service-areas/circle-c-ranch" class="sad-link">Circle C Ranch</a>
+        <a href="/service-areas/slaughter-creek" class="sad-link">Slaughter Creek</a>
+        <a href="/service-areas/sunset-valley" class="sad-link">Sunset Valley</a>
+        <a href="/service-areas/manchaca" class="sad-link">Manchaca</a>
+        <a href="/service-areas/st-edwards" class="sad-link">St. Edward's Area</a>
+        <a href="/service-areas/galindo" class="sad-link">Galindo</a>
+        <a href="/service-areas/east-congress" class="sad-link">East Congress</a>
+        <a href="/service-areas/onion-creek" class="sad-link">Onion Creek</a>
+        <a href="/service-areas/shady-hollow" class="sad-link">Shady Hollow</a>
+      </div>
+    </div>
+
+    <!-- EAST AUSTIN -->
+    <div class="sad-cluster">
+      <div class="sad-cluster-header">
+        <span class="sad-cluster-icon"><i class="fas fa-map-marker-alt"></i></span>
+        <h3 class="sad-cluster-title">East Austin</h3>
+        <span class="sad-cluster-count">10 neighborhoods</span>
+      </div>
+      <div class="sad-links-grid">
+        <a href="/service-areas/mueller" class="sad-link">Mueller</a>
+        <a href="/service-areas/windsor-park" class="sad-link">Windsor Park</a>
+        <a href="/service-areas/manor-road" class="sad-link">Manor Road</a>
+        <a href="/service-areas/rosewood" class="sad-link">Rosewood</a>
+        <a href="/service-areas/govalle" class="sad-link">Govalle</a>
+        <a href="/service-areas/montopolis" class="sad-link">Montopolis</a>
+        <a href="/service-areas/pleasant-valley" class="sad-link">Pleasant Valley</a>
+        <a href="/service-areas/colony-park" class="sad-link">Colony Park</a>
+        <a href="/service-areas/dove-springs" class="sad-link">Dove Springs</a>
+        <a href="/service-areas/east-riverside" class="sad-link">East Riverside</a>
+      </div>
+    </div>
+
+    <!-- WEST AUSTIN -->
+    <div class="sad-cluster">
+      <div class="sad-cluster-header">
+        <span class="sad-cluster-icon"><i class="fas fa-map-marker-alt"></i></span>
+        <h3 class="sad-cluster-title">West Austin</h3>
+        <span class="sad-cluster-count">10 neighborhoods</span>
+      </div>
+      <div class="sad-links-grid">
+        <a href="/service-areas/west-lake-hills" class="sad-link">West Lake Hills</a>
+        <a href="/service-areas/rollingwood" class="sad-link">Rollingwood</a>
+        <a href="/service-areas/rob-roy" class="sad-link">Rob Roy</a>
+        <a href="/service-areas/lost-creek" class="sad-link">Lost Creek</a>
+        <a href="/service-areas/barton-creek" class="sad-link">Barton Creek</a>
+        <a href="/service-areas/steiner-ranch" class="sad-link">Steiner Ranch</a>
+        <a href="/service-areas/four-points" class="sad-link">Four Points</a>
+        <a href="/service-areas/river-place" class="sad-link">River Place</a>
+        <a href="/service-areas/cat-mountain" class="sad-link">Cat Mountain</a>
+        <a href="/service-areas/austin-lake-estates" class="sad-link">Austin Lake Estates</a>
+      </div>
+    </div>
+
+    <!-- SURROUNDING COMMUNITIES -->
+    <div class="sad-cluster">
+      <div class="sad-cluster-header">
+        <span class="sad-cluster-icon"><i class="fas fa-map-marker-alt"></i></span>
+        <h3 class="sad-cluster-title">Surrounding Communities</h3>
+        <span class="sad-cluster-count">32 communities</span>
+      </div>
+      <div class="sad-links-grid">
+        <a href="/service-areas/lakeway" class="sad-link">Lakeway</a>
+        <a href="/service-areas/bee-cave" class="sad-link">Bee Cave</a>
+        <a href="/service-areas/cedar-park" class="sad-link">Cedar Park</a>
+        <a href="/service-areas/round-rock" class="sad-link">Round Rock</a>
+        <a href="/service-areas/georgetown" class="sad-link">Georgetown</a>
+        <a href="/service-areas/pflugerville" class="sad-link">Pflugerville</a>
+        <a href="/service-areas/hutto" class="sad-link">Hutto</a>
+        <a href="/service-areas/leander" class="sad-link">Leander</a>
+        <a href="/service-areas/buda" class="sad-link">Buda</a>
+        <a href="/service-areas/kyle" class="sad-link">Kyle</a>
+        <a href="/service-areas/manor" class="sad-link">Manor</a>
+        <a href="/service-areas/del-valle" class="sad-link">Del Valle</a>
+        <a href="/service-areas/bastrop" class="sad-link">Bastrop</a>
+        <a href="/service-areas/elgin" class="sad-link">Elgin</a>
+        <a href="/service-areas/liberty-hill" class="sad-link">Liberty Hill</a>
+        <a href="/service-areas/taylor" class="sad-link">Taylor</a>
+        <a href="/service-areas/jarrell" class="sad-link">Jarrell</a>
+        <a href="/service-areas/marble-falls" class="sad-link">Marble Falls</a>
+        <a href="/service-areas/burnet" class="sad-link">Burnet</a>
+        <a href="/service-areas/spicewood" class="sad-link">Spicewood</a>
+        <a href="/service-areas/jonestown" class="sad-link">Jonestown</a>
+        <a href="/service-areas/lago-vista" class="sad-link">Lago Vista</a>
+        <a href="/service-areas/volente" class="sad-link">Volente</a>
+        <a href="/service-areas/cedar-valley" class="sad-link">Cedar Valley</a>
+        <a href="/service-areas/dripping-springs" class="sad-link">Dripping Springs</a>
+        <a href="/service-areas/wimberley" class="sad-link">Wimberley</a>
+        <a href="/service-areas/san-marcos" class="sad-link">San Marcos</a>
+        <a href="/service-areas/lockhart" class="sad-link">Lockhart</a>
+        <a href="/service-areas/luling" class="sad-link">Luling</a>
+        <a href="/service-areas/lakeline" class="sad-link">Lakeline</a>
+        <a href="/service-areas/brushy-creek" class="sad-link">Brushy Creek</a>
+        <a href="/service-areas/sunset-valley-community" class="sad-link">Sunset Valley (Community)</a>
+      </div>
+    </div>
+
+    <!-- CTA FOOTER STRIP -->
+    <div class="sad-cta-strip">
+      <div class="sad-cta-text">
+        <i class="fas fa-phone-alt sad-cta-icon"></i>
+        <div>
+          <strong>Don't see your neighborhood?</strong>
+          <span>We serve all areas within 50 miles of downtown Austin. Call us — we come to you.</span>
+        </div>
+      </div>
+      <a href="tel:[business_phone]" class="btn-primary sad-cta-btn">Call for Same-Day Service</a>
+    </div>
+
+  </div>
+</section>
+
+<section class="service-areas-coverage-map-section" data-layout-spec="Service Areas-coverage-map">
+  <div class="coverage-map-container">
+
+    <!-- START: Content Column -->
+    <div class="coverage-map-content">
+      <div class="coverage-eyebrow">
+        <span class="coverage-badge"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Service Radius</span>
+      </div>
+
+      <h2 class="coverage-heading">50 Miles of Trusted Garage Door Service — Right From Downtown Austin</h2>
+
+      <p class="coverage-lead">Irongate Garage Door covers every neighborhood, subdivision, and community within a 50-mile radius of downtown Austin, TX. Whether you're in the urban core or a quiet suburb, our technicians know your streets, your neighbors, and your garage doors.</p>
+
+      <div class="coverage-divider" aria-hidden="true"></div>
+
+      <div class="coverage-points">
+
+        <div class="coverage-point">
+          <div class="coverage-point-icon">
+            <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+          </div>
+          <div class="coverage-point-content">
+            <h3>Austin Core &amp; Inner Neighborhoods</h3>
+            <p>We provide same-day garage door repair in Austin TX across the urban core — from Hyde Park and Cherrywood to Bouldin Creek, South Congress, and Mueller. These high-demand zones receive our fastest response windows.</p>
+          </div>
+        </div>
+
+        <div class="coverage-point">
+          <div class="coverage-point-icon">
+            <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          </div>
+          <div class="coverage-point-content">
+            <h3>Surrounding Communities &amp; Suburbs</h3>
+            <p>Our coverage ring extends to Cedar Park, Round Rock, Pflugerville, Kyle, Buda, Georgetown, Leander, and beyond. Each community has its own dedicated neighborhood page with local reviews, service history, and tailored information — so you always feel like you're working with a local expert.</p>
+          </div>
+        </div>
+
+        <div class="coverage-point">
+          <div class="coverage-point-icon">
+            <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <div class="coverage-point-content">
+            <h3>Same-Day Coverage — No Long Waits</h3>
+            <p>Neighborhoods within 20 miles of downtown Austin receive priority same-day dispatch. Outer zones are typically served within the same business day or the next morning — because a broken garage door shouldn't mean a sleepless night.</p>
+          </div>
+        </div>
+
+        <div class="coverage-point">
+          <div class="coverage-point-icon">
+            <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          </div>
+          <div class="coverage-point-content">
+            <h3>100 Neighborhood Pages — Find Yours</h3>
+            <p>We've built dedicated pages for over 100 Austin-area neighborhoods. Each page includes real customer reviews from that area, local photos, and up-to-date service information — so you know exactly what to expect before we arrive at your door.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="coverage-cta-row">
+        <a href="tel:[business_phone]" class="btn-primary coverage-cta-btn">
+          <i class="fa-solid fa-phone" aria-hidden="true"></i> Call for Same-Day Service
+        </a>
+        <a href="/contact" class="btn-ghost coverage-ghost-btn">Find My Neighborhood</a>
+      </div>
+    </div>
+
+    <!-- END: Map Column -->
+    <div class="coverage-map-visual">
+      <div class="map-frame">
+        <img data-placeholder="service-areas-coverage-map-image-1" data-context="A clean, stylized illustrated map of Austin TX and surrounding areas showing a 50-mile service radius ring centered on downtown Austin. The map uses a warm pale stone background with muted street grid lines. Major service corridors and neighborhood clusters are highlighted with copper/burnt orange accent lines and dots. Key cities like Cedar Park, Round Rock, Pflugerville, Kyle, Buda, Georgetown, and Leander are labeled with small copper marker pins. The central Austin core is emphasized with a slightly darker warm tint. The overall aesthetic is editorial and professional — not a Google Maps screenshot but a custom illustrated cartographic graphic suited for a premium local service business website." width="600" height="520" src="/assets/site-service-areas-coverage-map-image-1.webp" alt="Service area map showing Irongate Garage Door coverage within 50 miles of downtown Austin TX">
+        <div class="map-overlay-badge">
+          <span class="map-badge-radius">50-Mile</span>
+          <span class="map-badge-label">Service Radius</span>
+        </div>
+        <div class="map-stat-chips">
+          <div class="map-chip">
+            <strong>100+</strong>
+            <span>Neighborhoods</span>
+          </div>
+          <div class="map-chip">
+            <strong>Same-Day</strong>
+            <span>Core Austin</span>
+          </div>
+          <div class="map-chip">
+            <strong>50 mi</strong>
+            <span>Coverage Ring</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="service-areas-publishing-standards-section" data-layout-spec="Service Areas-publishing-standards">
+  <div class="saps-container">
+
+    <!-- Centered Intro Block -->
+    <div class="saps-intro">
+      <span class="saps-eyebrow">Our Neighborhood Page Standard</span>
+      <h2 class="saps-heading">Every Service Area Page Is Built to Earn Your Trust</h2>
+      <p class="saps-subheading">When you search for garage door repair in your Austin neighborhood, you deserve more than a generic listing. Every Irongate Garage Door service area page is researched, written, and maintained to give you genuinely useful local information — not thin filler content.</p>
+    </div>
+
+    <!-- Three Editorial Cards -->
+    <div class="saps-cards-grid">
+
+      <!-- Card 1: Localized Service Language + Real Reviews -->
+      <article class="saps-card">
+        <figure class="saps-card-image-wrap">
+          <img data-placeholder="service-areas-publishing-standards-image-1" data-context="A professional garage door technician in a branded work shirt reviewing a clipboard with service notes while standing in front of a residential garage door in an Austin TX neighborhood. Warm natural lighting, editorial documentary style, credibility and expertise conveyed." width="560" height="280" src="/assets/site-service-areas-publishing-standards-image-1.webp" alt="Irongate technician reviewing service notes at an Austin neighborhood garage door job">
+        </figure>
+        <div class="saps-card-body">
+          <div class="saps-card-icon-row">
+            <span class="saps-icon-wrap">
+              <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path></svg>
+            </span>
+            <span class="saps-card-label">Localized Copy &amp; Real Reviews</span>
+          </div>
+          <h3 class="saps-card-title">Written for Your Neighborhood, Backed by Real Customers</h3>
+          <p>Each page uses service language specific to that community — not a copy-paste template. We describe the types of garage doors common in your area, the climate challenges that affect springs and openers in Central Texas, and the specific streets and subdivisions we serve. Where available, we feature verified reviews from actual customers in that neighborhood, so you can see what your neighbors say about our garage door repair in Austin TX — not just a generic star rating.</p>
+          <div class="saps-card-rule"></div>
+          <p class="saps-card-note"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Neighborhood-specific service descriptions &nbsp;·&nbsp; <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Verified local customer reviews</p>
+        </div>
+      </article>
+
+      <!-- Card 2: Neighborhood Context + Housing Stock -->
+      <article class="saps-card">
+        <figure class="saps-card-image-wrap">
+          <img data-placeholder="service-areas-publishing-standards-image-2" data-context="Aerial or street-level photograph of a characteristic Austin Texas residential neighborhood showing a mix of single-family homes with attached garages, mature oak trees lining the street, warm afternoon Texas light, editorial real estate photography style that conveys local authority and familiarity." width="560" height="280" src="/assets/site-service-areas-publishing-standards-image-2.webp" alt="Austin TX residential neighborhood with homes featuring attached garages">
+        </figure>
+        <div class="saps-card-body">
+          <div class="saps-card-icon-row">
+            <span class="saps-icon-wrap">
+              <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            </span>
+            <span class="saps-card-label">Local Context &amp; Housing Intelligence</span>
+          </div>
+          <h3 class="saps-card-title">We Know the Housing Stock in Your Area</h3>
+          <p>A garage door technician who actually works your neighborhood knows things a call-center dispatcher doesn't. Our pages include current context about each area's housing stock — whether that's the 1970s ranch homes in Allandale with aging torsion springs, the new construction in Pflugerville with smart-opener compatibility questions, or the historic bungalows in Travis Heights with custom panel sizing. This context helps you understand exactly what service you might need before we even arrive.</p>
+          <div class="saps-card-rule"></div>
+          <p class="saps-card-note"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Area housing &amp; garage setup notes &nbsp;·&nbsp; <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Common local repair patterns</p>
+        </div>
+      </article>
+
+      <!-- Card 3: Photo, Map & Rolling Updates -->
+      <article class="saps-card">
+        <figure class="saps-card-image-wrap">
+          <img data-placeholder="service-areas-publishing-standards-image-3" data-context="A close-up of a laptop screen showing a neighborhood map and a garage door service area page with a photo of an Austin neighborhood, representing a professional local SEO content strategy for a home services business. Clean editorial style, warm ambient office lighting." width="560" height="280" src="/assets/site-service-areas-publishing-standards-image-3.webp" alt="Neighborhood service area page with local photo and map reference displayed on a laptop">
+        </figure>
+        <div class="saps-card-body">
+          <div class="saps-card-icon-row">
+            <span class="saps-icon-wrap">
+              <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="10" r="3"></circle><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 14 8 14s8-8.75 8-14a8 8 0 0 0-8-8z"></path></svg>
+            </span>
+            <span class="saps-card-label">Photos, Maps &amp; Living Pages</span>
+          </div>
+          <h3 class="saps-card-title">A Real Photo, a Map Reference, and Pages That Stay Current</h3>
+          <p>Every neighborhood page includes an actual photograph of the area and an embedded map reference so you can immediately confirm we serve your street. These aren't stock images — they're real visual anchors that reflect the community. Beyond that, we treat our neighborhood pages as living documents. Local information changes: new developments open, housing styles shift, and service demand evolves. We update pages on a rolling basis so the content you read today is accurate and relevant — not a snapshot from three years ago collecting dust.</p>
+          <div class="saps-card-rule"></div>
+          <p class="saps-card-note"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Real neighborhood photo &amp; map &nbsp;·&nbsp; <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Regularly updated local content</p>
+        </div>
+      </article>
+
+    </div>
+    <!-- End Cards Grid -->
+
+    <!-- Bottom Editorial Note -->
+    <div class="saps-footer-note">
+      <div class="saps-footer-note-inner">
+        <i class="fa-solid fa-rotate" aria-hidden="true"></i>
+        <p><strong>Our commitment to accuracy:</strong> Neighborhood pages are reviewed and refreshed on a rolling schedule. If local conditions, housing developments, or service patterns change in your area, we update the page — because outdated information doesn't help anyone searching for reliable garage door installation near them in Austin.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+  </main>
+  
+  <footer class="site-footer"><div class="footer-top"><div class="footer-container"><div class="footer-grid"><div class="footer-col footer-col--brand"><a href="/" class="footer-logo-link"><img src="/assets/irongate-garage-door-home-services-garage-door-logo.webp" alt="Irongate Garage Door" class="logo" /></a><p class="footer-tagline">Austin's trusted garage door specialists — repairs, installations, and emergency service you can count on.</p><div class="footer-social"><a href="[facebook_handle]" aria-label="Facebook" class="social-link"><i class="fab fa-facebook-f"></i></a><a href="[instagram_handle]" aria-label="Instagram" class="social-link"><i class="fab fa-instagram"></i></a><a href="[whatsapp_handle]" aria-label="WhatsApp" class="social-link"><i class="fab fa-whatsapp"></i></a></div></div><div class="footer-col footer-col--links"><h3 class="footer-heading"><span class="footer-heading-accent"></span>Quick Links</h3><ul class="footer-nav"><li><a href="/garage-door-services-austin-tx/">Services</a></li><li><a href="/austin-neighborhood-garage-door-service-areas/">Service Areas</a></li><li><a href="/austin-garage-door-reviews/">Reviews &amp; Proof</a></li><li><a href="/contact-irongate-garage-door/">Contact Us</a></li></ul></div><div class="footer-col footer-col--areas"><h3 class="footer-heading"><span class="footer-heading-accent"></span>Neighborhoods We Serve</h3><ul class="footer-nav footer-nav--areas"><li><a href="/austin-tx/downtown-garage-door-repair/">Downtown Austin</a></li><li><a href="/austin-tx/south-congress-garage-door-repair/">South Congress</a></li><li><a href="/austin-tx/mueller-garage-door-repair/">Mueller</a></li><li><a href="/austin-tx/travis-heights-garage-door-repair/">Travis Heights</a></li><li><a href="/austin-tx/hyde-park-garage-door-repair/">Hyde Park</a></li><li><a href="/austin-neighborhood-garage-door-service-areas/" class="footer-see-all">View All Areas →</a></li></ul></div><div class="footer-col footer-col--contact"><h3 class="footer-heading"><span class="footer-heading-accent"></span>Get In Touch</h3><ul class="footer-contact-list"><li><span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></span><a href="tel:[business_phone]">[business_phone]</a></li><li><span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></span><a href="mailto:[business_email]">[business_email]</a></li><li><a href="/"><span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span><address>[business_address]</address></a></li></ul><a href="/contact-irongate-garage-door/" class="footer-cta-btn">Request a Free Quote</a></div></div></div></div><div class="footer-bottom"><div class="footer-container"><div class="footer-bottom-inner"><p class="footer-copyright">© 2026 Irongate Garage Door. All rights reserved.</p><nav class="footer-legal" aria-label="Legal"><a href="/privacy">Privacy Policy</a><span class="footer-legal-sep" aria-hidden="true">•</span><a href="/terms">Terms &amp; Conditions</a><span class="footer-legal-sep" aria-hidden="true">•</span><a href="/accessibility">Accessibility</a><span class="footer-legal-sep" aria-hidden="true">•</span><a href="https://zappy5.com" target="_blank" rel="noopener noreferrer" class="zappy-attribution">Generated by Zappy</a></nav></div></div></div></footer>
+  
+  <a href="https://wa.me/[whatsapp_handle]" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  
+  <div data-integration="accessibility:toolbar"></div>
+
+    <script src="/script.js"></script>
+
+    <script id="zappy-mobile-submenu-script">
+    (function() {
+      function initMobileSubmenuToggles() {
+        if (window.innerWidth > 768) {
+          document.querySelectorAll('.mobile-submenu-toggle').forEach(function(btn) { btn.remove(); });
+          document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) { menu.classList.remove('mobile-expanded'); });
+          return;
+        }
+        var items = document.querySelectorAll('.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)');
+        items.forEach(function(li) {
+          if (li.querySelector('.mobile-submenu-toggle')) return;
+          var submenu = li.querySelector('.sub-menu');
+          var parentLink = li.querySelector(':scope > a');
+          if (!submenu || !parentLink) return;
+          var toggleBtn = document.createElement('button');
+          toggleBtn.className = 'mobile-submenu-toggle';
+          toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+          toggleBtn.setAttribute('type', 'button');
+          parentLink.insertAdjacentElement('afterend', toggleBtn);
+          toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+              if (menu !== submenu) { menu.classList.remove('mobile-expanded'); var t = menu.parentElement.querySelector('.mobile-submenu-toggle'); if(t) t.classList.remove('expanded'); }
+            });
+            submenu.classList.toggle('mobile-expanded');
+            toggleBtn.classList.toggle('expanded');
+          });
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileSubmenuToggles); }
+      else { initMobileSubmenuToggles(); }
+      var resizeTimer; window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(initMobileSubmenuToggles, 250); });
+      // Re-initialize when mobile menu becomes visible (MutationObserver)
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes') {
+            var target = mutation.target;
+            if (target.classList && (target.classList.contains('active') || target.classList.contains('open'))) {
+              setTimeout(initMobileSubmenuToggles, 100);
+            }
+          }
+        });
+      });
+      setTimeout(function() {
+        document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu, nav').forEach(function(menu) {
+          observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+        });
+      }, 500);
+    })();
+    </script>
+
+    <script id="zappy-mobile-lang-menu-script">
+    (function() {
+      function initMobileLangMenu() {
+        if (window.innerWidth > 768) {
+          var existingMenu = document.querySelector('.mobile-lang-menu');
+          if (existingMenu) existingMenu.remove();
+          return;
+        }
+        if (document.querySelector('.mobile-lang-menu')) return;
+        var switcher = document.querySelector('.lang-switcher');
+        if (!switcher) return;
+        var dropdown = switcher.querySelector('.lang-switcher-dropdown');
+        if (!dropdown) return;
+        var options = dropdown.querySelectorAll('.lang-option');
+        if (options.length === 0) return;
+        var navMenu = document.getElementById('navMenu') || document.querySelector('.nav-menu') || document.querySelector('nav ul');
+        if (!navMenu) return;
+        var currentLang = document.documentElement.lang || 'en';
+        var langConfigs = {
+          he: {name:'עברית',flag:'https://api.iconify.design/circle-flags/il.svg'},
+          en: {name:'English',flag:'https://api.iconify.design/circle-flags/us.svg'},
+          ar: {name:'العربية',flag:'https://api.iconify.design/circle-flags/sa.svg'},
+          fr: {name:'Français',flag:'https://api.iconify.design/circle-flags/fr.svg'},
+          es: {name:'Español',flag:'https://api.iconify.design/circle-flags/es.svg'},
+          de: {name:'Deutsch',flag:'https://api.iconify.design/circle-flags/de.svg'},
+          ru: {name:'Русский',flag:'https://api.iconify.design/circle-flags/ru.svg'},
+          zh: {name:'中文',flag:'https://api.iconify.design/circle-flags/cn.svg'},
+          ja: {name:'日本語',flag:'https://api.iconify.design/circle-flags/jp.svg'},
+          pt: {name:'Português',flag:'https://api.iconify.design/circle-flags/br.svg'},
+          it: {name:'Italiano',flag:'https://api.iconify.design/circle-flags/it.svg'},
+          ko: {name:'한국어',flag:'https://api.iconify.design/circle-flags/kr.svg'}
+        };
+        var container = document.createElement('div');
+        container.className = 'mobile-lang-menu';
+        var currentConfig = langConfigs[currentLang] || {name:currentLang,flag:''};
+        var toggleBtn = document.createElement('button');
+        toggleBtn.className = 'mobile-lang-toggle';
+        toggleBtn.type = 'button';
+        var currentFlagHtml = currentConfig.flag ? '<img src="' + currentConfig.flag + '" width="20" height="20" alt="" style="border-radius:50%;margin-right:8px;margin-left:8px;">' : '';
+        toggleBtn.innerHTML = currentFlagHtml + currentConfig.name;
+        container.appendChild(toggleBtn);
+        var optionsDiv = document.createElement('div');
+        optionsDiv.className = 'mobile-lang-options';
+        var currentLink = document.createElement('a');
+        currentLink.className = 'mobile-lang-option active';
+        currentLink.href = '#';
+        currentLink.innerHTML = currentFlagHtml + currentConfig.name;
+        optionsDiv.appendChild(currentLink);
+        options.forEach(function(opt) {
+          var link = document.createElement('a');
+          link.className = 'mobile-lang-option';
+          link.href = opt.getAttribute('href');
+          link.innerHTML = opt.innerHTML;
+          optionsDiv.appendChild(link);
+        });
+        container.appendChild(optionsDiv);
+        navMenu.appendChild(container);
+        toggleBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleBtn.classList.toggle('expanded');
+          optionsDiv.classList.toggle('expanded');
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileLangMenu); }
+      else { initMobileLangMenu(); }
+      window.addEventListener('resize', function() { clearTimeout(window._mlrt); window._mlrt = setTimeout(initMobileLangMenu, 250); });
+    })();
+    </script>
+</body>
+</html>

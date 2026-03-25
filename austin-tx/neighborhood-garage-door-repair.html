@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>Local Garage Door Experts in [Neighborhood] — Irongate Garage Door</title>
+    <meta name="description" content="Irongate&#39;s [Neighborhood] garage door tech is minutes away and ready to fix springs, cables &amp; openers fast. See real neighbor reviews and book same-day service today.">
+    <meta name="keywords" content="[neighborhood] garage door repair, garage door repair Austin TX, emergency garage door repair Austin, local garage door service [neighborhood], same-day garage door repair near me">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Zappy Analytics -->
+<script>
+(function() {
+  'use strict';
+  
+  // Configuration
+  var config = {
+    websiteId: '8c27cf64-a9f6-49a9-b845-2bba0c8ec21e',
+    apiUrl: 'https://api.zappy5.com/api/analytics/track',
+    sessionDuration: 30 * 60 * 1000, // 30 minutes
+    visitorDuration: 30 * 24 * 60 * 60 * 1000, // 30 days
+    trackPageViews: true,
+    trackClicks: true,
+    trackFormSubmissions: true
+  };
+  
+  // Generate or retrieve persistent visitor ID (30 days)
+  function getVisitorId() {
+    var visitorKey = 'zappy_visitor_' + config.websiteId;
+    var visitor = null;
+    
+    try {
+      visitor = localStorage.getItem(visitorKey);
+      if (visitor) {
+        var visitorData = JSON.parse(visitor);
+        var now = Date.now();
+        
+        // Check if visitor ID is still valid (30 days)
+        if (now - visitorData.created < config.visitorDuration) {
+          // Update last seen timestamp
+          visitorData.lastSeen = now;
+          localStorage.setItem(visitorKey, JSON.stringify(visitorData));
+          return visitorData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: LocalStorage not available');
+    }
+    
+    // Generate new visitor ID
+    var newVisitorId = 'zv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      localStorage.setItem(visitorKey, JSON.stringify({
+        id: newVisitorId,
+        created: Date.now(),
+        lastSeen: Date.now()
+      }));
+    } catch (e) {
+      // Continue without local storage
+    }
+    
+    return newVisitorId;
+  }
+  
+  // Generate or retrieve session ID (30 minutes)
+  function getSessionId() {
+    var sessionKey = 'zappy_session_' + config.websiteId;
+    var session = null;
+    
+    try {
+      session = sessionStorage.getItem(sessionKey);
+      if (session) {
+        var sessionData = JSON.parse(session);
+        var now = Date.now();
+        
+        // Check if session is still valid
+        if (now - sessionData.timestamp < config.sessionDuration) {
+          // Update timestamp
+          sessionData.timestamp = now;
+          sessionStorage.setItem(sessionKey, JSON.stringify(sessionData));
+          return sessionData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: SessionStorage not available');
+    }
+    
+    // Generate new session ID
+    var newSessionId = 'zs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      sessionStorage.setItem(sessionKey, JSON.stringify({
+        id: newSessionId,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      // Continue without session storage
+    }
+    
+    return newSessionId;
+  }
+  
+  var visitorId = getVisitorId();
+  var sessionId = getSessionId();
+  
+  // Track an event
+  function trackEvent(eventType, data) {
+    data = data || {};
+    
+    var eventData = {
+      website_id: config.websiteId,
+      event_type: eventType,
+      page_path: window.location.pathname,
+      referrer: document.referrer || 'direct',
+      visitor_id: visitorId,
+      session_id: sessionId,
+      metadata: data
+    };
+    
+    // Use sendBeacon if available (better for page unload events)
+    if (navigator.sendBeacon) {
+      var blob = new Blob([JSON.stringify(eventData)], { type: 'application/json' });
+      navigator.sendBeacon(config.apiUrl, blob);
+    } else {
+      // Fallback to fetch
+      fetch(config.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventData),
+        keepalive: true
+      }).catch(function(error) {
+        console.warn('Zappy Analytics: Failed to track event', error);
+      });
+    }
+  }
+  
+  // Track page view
+  if (config.trackPageViews) {
+    trackEvent('pageview', {
+      title: document.title,
+      url: window.location.href
+    });
+  }
+  
+  // Track clicks on important elements
+  if (config.trackClicks) {
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      
+      // Track button clicks (counted as actions)
+      if (target.tagName === 'BUTTON' || target.closest('button')) {
+        var button = target.tagName === 'BUTTON' ? target : target.closest('button');
+        trackEvent('click', {
+          element: 'button',
+          text: button.textContent.trim().substring(0, 100),
+          id: button.id || null,
+          class: button.className || null
+        });
+      }
+      
+      // Track link clicks (navigation - not counted as actions)
+      else if (target.tagName === 'A' || target.closest('a')) {
+        var link = target.tagName === 'A' ? target : target.closest('a');
+        trackEvent('navigation', {
+          element: 'link',
+          text: link.textContent.trim().substring(0, 100),
+          href: link.href,
+          external: link.hostname !== window.location.hostname
+        });
+      }
+    }, true);
+  }
+  
+  // Track form submissions
+  if (config.trackFormSubmissions) {
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      
+      trackEvent('form_submit', {
+        form_id: form.id || null,
+        form_name: form.name || null,
+        form_action: form.action || null,
+        form_method: form.method || 'GET'
+      });
+    }, true);
+  }
+  
+  // Track time on page (send on page unload)
+  var pageLoadTime = Date.now();
+  
+  window.addEventListener('beforeunload', function() {
+    var timeOnPage = Math.floor((Date.now() - pageLoadTime) / 1000); // in seconds
+    
+    trackEvent('page_unload', {
+      time_on_page: timeOnPage,
+      page_path: window.location.pathname
+    });
+  });
+  
+  // Expose tracking function globally for custom events
+  window.zappyAnalytics = {
+    track: trackEvent,
+    getVisitorId: function() { return visitorId; },
+    getSessionId: function() { return sessionId; }
+  };
+  
+})();
+</script>
+<!-- End Zappy Analytics -->
+    <meta property="og:title" content="Local Garage Door Experts in [Neighborhood] — Irongate Garage Door">
+  <meta property="og:description" content="Irongate's [Neighborhood] garage door tech is minutes away and ready to fix springs, cables &amp; openers fast. See real neighbor reviews and book same-day service today.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Local Garage Door Experts in [Neighborhood] — Irongate Garage Door">
+  <meta name="twitter:description" content="Irongate's [Neighborhood] garage door tech is minutes away and ready to fix springs, cables &amp; openers fast. See real neighbor reviews and book same-day service today.">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Cookie Consent -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
+    <!-- Mickidum Accessibility Toolbar -->
+    <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
+
+    <style id="zappy-dropdown-submenu-styles">
+      /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
+      /* Base styles for dropdown submenus - parent must be positioned */
+      .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { position: relative; }
+      /* Submenu base - hidden by default */
+      .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { display: block !important; position: absolute !important; top: 100%; left: 0; min-width: 220px; background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); padding: 8px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1000; list-style: none; pointer-events: none; }
+      /* CRITICAL: Desktop hover styles to show dropdown */
+      .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Submenu item styling */
+      .sub-menu li { list-style: none; margin: 0; padding: 0; }
+      .sub-menu a { display: block !important; padding: 10px 16px !important; color: var(--text-dark, #333) !important; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.2s; }
+      .sub-menu a:hover { background-color: #f5f5f5; }
+      /* RTL (Hebrew/Arabic) dropdown positioning */
+      [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
+      /* Hide empty dropdown menus */
+      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))), .sub-menu:not(:has(li)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+      /* Desktop: show submenu on Menu Group hover */
+      li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Menu Group title styling */
+      .nav-menu > li > .menu-group-title, #navMenu > li > .menu-group-title { display: inline-block; padding: 0.5rem 1rem; cursor: default; user-select: none; }
+      
+      /* ========== MOBILE SUBMENU STYLES ========== */
+      @media (max-width: 768px) {
+        .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
+        .sub-menu.mobile-expanded { max-height: 500px !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
+        [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
+        /* Disable hover behavior on mobile */
+        .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
+        .nav-menu li > .sub-menu.mobile-expanded, nav li > .sub-menu.mobile-expanded, .navbar li > .sub-menu.mobile-expanded, #navMenu li > .sub-menu.mobile-expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { display: flex !important; flex-wrap: wrap !important; align-items: center !important; position: relative !important; min-height: 44px !important; }
+        .nav-menu li:has(.sub-menu) > a, nav li:has(.sub-menu) > a, .navbar li:has(.sub-menu) > a, #navMenu li:has(.sub-menu) > a { flex: 1 !important; min-width: 0 !important; }
+        .nav-menu li:has(.sub-menu) > .menu-group-title, nav li:has(.sub-menu) > .menu-group-title, .navbar li:has(.sub-menu) > .menu-group-title, #navMenu li:has(.sub-menu) > .menu-group-title { flex: 1 !important; min-width: 0 !important; padding: 0 !important; line-height: inherit !important; }
+        .nav-menu li:has(.sub-menu) > .sub-menu, nav li:has(.sub-menu) > .sub-menu, .navbar li:has(.sub-menu) > .sub-menu, #navMenu li:has(.sub-menu) > .sub-menu { flex-basis: 100% !important; width: 100% !important; }
+        .nav-menu li:has(.sub-menu) > a [class*="chevron"], .nav-menu li:has(.sub-menu) > a [class*="arrow"], .nav-menu li:has(.sub-menu) > a .fa-chevron-down, .nav-menu li:has(.sub-menu) > a .fa-angle-down, nav li:has(.sub-menu) > a [class*="chevron"], nav li:has(.sub-menu) > a [class*="arrow"], #navMenu li:has(.sub-menu) > a [class*="chevron"], #navMenu li:has(.sub-menu) > a [class*="arrow"] { display: none !important; visibility: hidden !important; }
+        .mobile-submenu-toggle { display: flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: auto !important; background: transparent !important; border: none !important; cursor: pointer !important; color: var(--text-dark) !important; position: static !important; flex-shrink: 0 !important; align-self: stretch !important; z-index: 2 !important; padding: 0 !important; margin: 0 !important; }
+        .mobile-submenu-toggle::after { content: '' !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 7px solid currentColor !important; transition: transform 0.3s ease !important; }
+        .mobile-submenu-toggle.expanded::after { transform: rotate(180deg) !important; }
+        .sub-menu a { padding: 10px 0 !important; display: block !important; color: var(--text-dark) !important; }
+        .navbar .sub-menu li a, nav.navbar .sub-menu li a, .zappy-products-dropdown .sub-menu a { color: var(--text-dark) !important; }
+      }
+      @media (min-width: 769px) { .mobile-submenu-toggle { display: none !important; } }
+    </style>
+
+    <style id="mobile-lang-menu-deployed-css">
+    @media (max-width: 768px) {
+      .lang-switcher,
+      .nav-cta-container .lang-switcher,
+      .nav-container .lang-switcher,
+      .navbar .lang-switcher,
+      .navbar .nav-cta-container .lang-switcher,
+      .nav-icons-left .lang-switcher,
+      .nav-ecommerce-icons .lang-switcher { display: none !important; }
+      .mobile-lang-menu { width: 100%; border-top: 1px solid rgba(128,128,128,0.2); padding: 8px 0 0 0; margin-top: 8px; }
+      .mobile-lang-toggle { display: flex !important; align-items: center; justify-content: space-between; width: 100%; padding: 12px 16px; background: none; border: none; cursor: pointer; font-size: 15px; color: inherit; font-family: inherit; }
+      .mobile-lang-toggle::after { content: ''; display: inline-block; width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform 0.3s ease; margin-left: 8px; }
+      .mobile-lang-toggle.expanded::after { transform: rotate(-135deg); }
+      .mobile-lang-options { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+      .mobile-lang-options.expanded { max-height: 300px; }
+      .mobile-lang-option { display: flex !important; align-items: center; gap: 10px; padding: 10px 24px; text-decoration: none; color: inherit; font-size: 14px; font-family: inherit; }
+      .mobile-lang-option:hover { background: rgba(128,128,128,0.1); }
+      .mobile-lang-option.active { font-weight: 600; opacity: 0.7; pointer-events: none; }
+      .mobile-lang-option img { width: 20px; height: 20px; border-radius: 50%; }
+    }
+    @media (min-width: 769px) {
+      .mobile-lang-menu { display: none !important; }
+    }
+    </style>
+
+    <style id="zappy-widget-visibility">
+      #mic-access-tool-general-button, .mic-access-tool-general-button,
+      #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+      ._access-icon, #mic-access-tool-box, .mic-access-tool-box,
+      #mic-init-access-tool #mic-access-tool-box, div[id*="mic-access-tool-box"], ._access-menu {
+        display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important;
+      }
+    </style>
+</head>
+<body>
+
+  <nav class="navbar">
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+  </button>
+
+  <button class="phone-header-btn" data-phone="[business_phone]" aria-label="Call">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+  </button>
+
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a href="/" class="logo-link">
+        <img src="/assets/irongate-garage-door-home-services-garage-door-logo.webp" alt="Irongate Garage Door" class="logo" />
+      </a>
+    </div>
+
+    <ul class="nav-menu" id="navMenu"><li><a href="/garage-door-services-austin-tx">Services</a></li><li><a href="/austin-neighborhood-garage-door-service-areas">Service Areas</a></li><li><a href="/austin-tx/[neighborhood]-garage-door-repair">Neighborhood Page Template (Instantiated 100x)</a></li><li><a href="/austin-garage-door-reviews">Reviews &amp; Proof</a></li></ul>
+
+    <div class="nav-cta-container">
+      <a href="/contact-irongate-garage-door" class="nav-cta-btn">Contact</a>
+    </div>
+  </div>
+</nav>
+<script>
+
+// Navbar Mobile Menu Toggle and Contrast Fix
+(function() {
+  // Use 'load' event instead of 'DOMContentLoaded' to ensure we run AFTER all other scripts
+  window.addEventListener('load', function() {
+    
+    // FIX MOBILE BUTTON CONTRAST
+    // Detect navbar background color and apply contrasting color to mobile buttons
+    const navbar = document.querySelector('.navbar, nav, header');
+    if (!navbar) {
+      console.log('[Navbar] Navbar element not found');
+      return;
+    }
+    
+    // DECLARE VARIABLES EARLY to avoid Temporal Dead Zone errors
+    // These are used in multiple places below
+    let mobileToggle = document.getElementById('mobileToggle') ||
+                       document.querySelector('.mobile-toggle') ||
+                       document.querySelector('.hamburger') ||
+                       document.querySelector('.hamburger-menu') ||
+                       document.querySelector('.menu-toggle') ||
+                       document.querySelector('.burger-menu') ||
+                       document.querySelector('[aria-label="Menu"]') ||
+                       document.querySelector('[aria-label="תפריט"]');
+    
+    const phoneBtn = document.querySelector('.phone-header-btn');
+    
+    const computedStyle = window.getComputedStyle(navbar);
+    let bgColor = computedStyle.backgroundColor;
+    
+    console.log('[Navbar] Initial navbar background:', bgColor);
+    
+    // Check if background is transparent or rgba with 0 alpha
+    const isTransparent = bgColor === 'transparent' || 
+                         bgColor === 'rgba(0, 0, 0, 0)' ||
+                         (bgColor.startsWith('rgba') && bgColor.includes(', 0)'));
+    
+    if (isTransparent) {
+      // Check for background-image or gradient
+      const bgImage = computedStyle.backgroundImage;
+      if (bgImage && bgImage !== 'none') {
+        console.log('[Navbar] Navbar has background image/gradient, using dark text');
+        bgColor = 'rgb(240, 240, 240)'; // Assume light background
+      } else {
+        // Transparent navbar - check body background
+        const bodyBg = window.getComputedStyle(document.body).backgroundColor;
+        console.log('[Navbar] Navbar transparent, using body background:', bodyBg);
+        bgColor = bodyBg;
+      }
+    }
+    
+    // Calculate luminance to determine if background is light or dark
+    const rgb = bgColor.match(/\d+/g);
+    if (rgb && rgb.length >= 3) {
+      const r = parseInt(rgb[0]);
+      const g = parseInt(rgb[1]);
+      const b = parseInt(rgb[2]);
+      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+      
+      // Mobile button colors are set by Claude's AI-generated CSS (same as .nav-menu a)
+      // No dynamic color overrides needed - colors come from the generated navbar CSS
+      console.log('[Navbar] Mobile button colors preserved from Claude CSS (luminance:', luminance.toFixed(2) + ')');
+      
+      // FIX ICON SIZES - Ensure SVGs are properly sized and visible
+      // INJECT CRITICAL CSS TO OVERRIDE ANY CONFLICTING RULES
+      const criticalCSS = document.createElement('style');
+      criticalCSS.id = 'zappy-mobile-nav-fix';
+      const htmlLang = document.documentElement.lang || 'en';
+      const htmlDir = document.documentElement.dir || 'ltr';
+      // Check both dir attribute AND lang for RTL detection
+      // dir="rtl" is the most reliable indicator
+      const isRTL = htmlDir === 'rtl' || htmlLang === 'he' || htmlLang === 'ar';
+      
+      criticalCSS.textContent = `
+        /* Hide mobile buttons on desktop, show only on mobile */
+        @media (min-width: 769px) {
+          .mobile-toggle,
+          .phone-header-btn {
+            display: none !important;
+          }
+        }
+        
+        /* Show and position mobile buttons correctly on mobile */
+        @media (max-width: 768px) {
+          .mobile-toggle,
+          .phone-header-btn {
+            position: absolute !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            z-index: 1001 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 50% !important;
+            border: none !important;
+            cursor: pointer !important;
+            padding: 6px !important;
+            background: none !important;
+            color: var(--nav-text, var(--text-dark)) !important;
+          }
+          
+          /* LTR positioning (default): hamburger LEFT, phone RIGHT */
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .mobile-toggle,
+          html[dir="ltr"] .mobile-toggle {
+            left: 12px !important;
+            right: auto !important;
+          }
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .phone-header-btn,
+          html[dir="ltr"] .phone-header-btn {
+            right: 12px !important;
+            left: auto !important;
+          }
+          
+          /* RTL positioning: hamburger RIGHT, phone LEFT */
+          html[dir="rtl"] .mobile-toggle,
+          html[lang="he"] .mobile-toggle,
+          html[lang="ar"] .mobile-toggle {
+            right: 12px !important;
+            left: auto !important;
+          }
+          html[dir="rtl"] .phone-header-btn,
+          html[lang="he"] .phone-header-btn,
+          html[lang="ar"] .phone-header-btn {
+            left: 12px !important;
+            right: auto !important;
+          }
+          
+          /* CRITICAL: Ensure nav-container has min-height on mobile */
+          /* All children are positioned absolutely/fixed on mobile, so height:auto collapses to 0 */
+          .nav-container {
+            min-height: 70px !important;
+            position: relative !important;
+          }
+          
+          /* Ensure SVG icons are properly sized and inherit color */
+          .mobile-toggle svg,
+          .phone-header-btn svg {
+            width: 24px !important;
+            height: 24px !important;
+            /* Don't force display - let JavaScript control hamburger/close toggle */
+          }
+          
+          /* Reset nav-cta-container on mobile - remove desktop box-shadow/padding */
+          /* that creates a visible ghost box when CTA button is hidden */
+          .nav-cta-container {
+            box-shadow: none !important;
+            padding: 0 !important;
+          }
+          
+          /* Hide nav-cta-container entirely on mobile when there's no lang-switcher */
+          /* (only the CTA button is inside, and it's hidden on mobile) */
+          .nav-cta-container:not(:has(.lang-switcher)) {
+            display: none !important;
+          }
+          
+          /* CRITICAL: Prevent hero image fade gradient from bleeding over headline text */
+          /* The .image-fade-gradient has bottom: -30px (extends below parent) */
+          /* On mobile stacked layout, this overlaps the h1 text below the image */
+          .hero-image-column {
+            overflow: hidden !important;
+          }
+          .image-fade-gradient {
+            bottom: 0 !important;
+          }
+          
+          /* Hide desktop language switcher on mobile - hamburger menu handles it */
+          /* High specificity to override stored CSS */
+          .lang-switcher,
+          .nav-cta-container .lang-switcher,
+          .nav-container .lang-switcher,
+          .navbar .lang-switcher,
+          .navbar .nav-cta-container .lang-switcher {
+            display: none !important;
+          }
+        }
+      `;
+      
+      // Remove existing fix if present and inject new one
+      const existing = document.getElementById('zappy-mobile-nav-fix');
+      if (existing) existing.remove();
+      document.head.appendChild(criticalCSS);
+      
+      console.log('[Navbar] Critical CSS injected for mobile nav positioning');
+      
+      // ONLY apply inline positioning styles on mobile viewport
+      // On desktop, the CSS handles hiding these buttons with display: none
+      // Inline styles were breaking desktop layout by overriding CSS
+      const isMobileViewport = window.innerWidth <= 768;
+      
+      if (mobileToggle) {
+        // Icon sizing applies to all viewports for consistency
+        const hamburgerIcon = mobileToggle.querySelector('.hamburger-icon');
+        const closeIcon = mobileToggle.querySelector('.close-icon');
+        
+        if (hamburgerIcon) {
+          hamburgerIcon.style.setProperty('width', '24px', 'important');
+          hamburgerIcon.style.setProperty('height', '24px', 'important');
+          hamburgerIcon.style.setProperty('display', 'block', 'important'); // Show hamburger by default
+        }
+        if (closeIcon) {
+          closeIcon.style.setProperty('width', '24px', 'important');
+          closeIcon.style.setProperty('height', '24px', 'important');
+          closeIcon.style.setProperty('display', 'none', 'important'); // Hide close icon by default
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          mobileToggle.style.setProperty('position', 'absolute', 'important');
+          mobileToggle.style.setProperty('top', '50%', 'important');
+          mobileToggle.style.setProperty('transform', 'translateY(-50%)', 'important');
+          mobileToggle.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          
+          console.log('[Navbar] Mobile toggle positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          mobileToggle.style.removeProperty('position');
+          mobileToggle.style.removeProperty('top');
+          mobileToggle.style.removeProperty('transform');
+          mobileToggle.style.removeProperty('z-index');
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared mobile toggle inline positioning');
+        }
+      }
+      
+      if (phoneBtn) {
+        // Icon sizing applies to all viewports
+        const phoneIcon = phoneBtn.querySelector('svg');
+        if (phoneIcon) {
+          phoneIcon.style.width = '24px';
+          phoneIcon.style.height = '24px';
+          phoneIcon.setAttribute('width', '24');
+          phoneIcon.setAttribute('height', '24');
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          phoneBtn.style.setProperty('position', 'absolute', 'important');
+          phoneBtn.style.setProperty('top', '50%', 'important');
+          phoneBtn.style.setProperty('transform', 'translateY(-50%)', 'important');
+          phoneBtn.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          
+          console.log('[Navbar] Phone button positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          phoneBtn.style.removeProperty('position');
+          phoneBtn.style.removeProperty('top');
+          phoneBtn.style.removeProperty('transform');
+          phoneBtn.style.removeProperty('z-index');
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared phone button inline positioning');
+        }
+      }
+    } else {
+      console.log('[Navbar] Could not parse background color:', bgColor);
+    }
+    
+    // MOBILE MENU TOGGLE
+    // Re-query in case DOM changed (mobileToggle already declared at top of function)
+    mobileToggle = document.getElementById('mobileToggle') ||
+                   document.querySelector('.mobile-toggle') ||
+                   document.querySelector('.hamburger') ||
+                   document.querySelector('.hamburger-menu') ||
+                   document.querySelector('.menu-toggle') ||
+                   document.querySelector('.burger-menu') ||
+                   document.querySelector('[aria-label="Menu"]') ||
+                   document.querySelector('[aria-label="תפריט"]');
+    
+    // EXPANDED SEARCH: Find nav menu by ID or class
+    const navMenu = document.getElementById('navMenu') ||
+                  document.querySelector('.nav-menu') ||
+                  document.querySelector('.nav-links') ||
+                  document.querySelector('nav ul:not(.submenu)');
+    
+    if (!mobileToggle || !navMenu) {
+      console.log('[Navbar] Mobile toggle or menu not found:', { toggle: !!mobileToggle, menu: !!navMenu });
+      return;
+    }
+    
+    // Ensure navMenu has ID for CSS targeting
+    if (!navMenu.id) {
+      navMenu.id = 'navMenu';
+    }
+    
+    console.log('[Navbar] Initializing mobile menu...');
+    
+    // Remove any existing event listeners by cloning the button
+    const newToggle = mobileToggle.cloneNode(true);
+    mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
+    
+    // Toggle menu on button click - use newToggle now
+    newToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const hamburgerIcon = this.querySelector('.hamburger-icon');
+      const closeIcon = this.querySelector('.close-icon');
+      const isActive = navMenu.classList.contains('active');
+      
+      if (isActive) {
+        // Close menu
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed');
+      } else {
+        // Open menu
+        navMenu.classList.add('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'none', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'block', 'important');
+        document.body.style.overflow = 'hidden';
+        console.log('[Navbar] Menu opened');
+      }
+    });
+    
+    // Close menu when clicking nav links (but NOT dropdown toggles)
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        // Don't close if it's a dropdown child (unless it's a real navigation link)
+        if (this.getAttribute('href') === '#') return;
+        
+        const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+        const closeIcon = newToggle.querySelector('.close-icon');
+        
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed (link clicked)');
+      });
+    });
+    
+    // DROPDOWN MENU TOGGLE (for mobile and touch devices)
+    var dropdownToggles = navMenu.querySelectorAll('.dropdown-toggle');
+    dropdownToggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var parent = this.closest('.nav-dropdown');
+        if (!parent) return;
+        
+        // Close other open dropdowns at the same level
+        var siblings = parent.parentNode.querySelectorAll('.nav-dropdown.open');
+        siblings.forEach(function(sib) {
+          if (sib !== parent) sib.classList.remove('open');
+        });
+        
+        parent.classList.toggle('open');
+        console.log('[Navbar] Dropdown toggled:', parent.classList.contains('open') ? 'open' : 'closed');
+      });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-dropdown')) {
+        var openDropdowns = document.querySelectorAll('.nav-dropdown.open');
+        openDropdowns.forEach(function(dd) { dd.classList.remove('open'); });
+      }
+    });
+    
+    console.log('[Navbar] Dropdown handlers initialized for ' + dropdownToggles.length + ' dropdowns');
+    
+    // Phone button functionality (phoneBtn already declared at top of function)
+    if (phoneBtn) {
+      phoneBtn.addEventListener('click', function() {
+        // Get phone number from placeholder in page or use default
+        const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+        const phoneNumber = phoneLinks.length > 0 
+          ? phoneLinks[0].getAttribute('href').replace('tel:', '')
+          : '[business_phone]';
+        
+        window.location.href = 'tel:' + phoneNumber;
+        console.log('[Navbar] Phone button clicked');
+      });
+    }
+    
+    console.log('[Navbar] Mobile menu initialized successfully');
+    
+    // === WHATSAPP BUTTON VISIBILITY FIX ===
+    // Ensure WhatsApp floating button is hidden on desktop and visible on mobile
+    // IMPORTANT: Only target the floating button by its class, NOT generic wa.me links
+    const handleWhatsAppVisibility = function() {
+      const whatsappBtn = document.querySelector('.whatsapp-float');
+      if (whatsappBtn) {
+        const isDesktop = window.innerWidth >= 769;
+        if (isDesktop) {
+          whatsappBtn.style.setProperty('display', 'none', 'important');
+          whatsappBtn.style.setProperty('visibility', 'hidden', 'important');
+          whatsappBtn.style.setProperty('opacity', '0', 'important');
+          whatsappBtn.style.setProperty('pointer-events', 'none', 'important');
+          console.log('[WhatsApp] Button hidden on desktop');
+        } else {
+          whatsappBtn.style.removeProperty('display');
+          whatsappBtn.style.removeProperty('visibility');
+          whatsappBtn.style.removeProperty('opacity');
+          whatsappBtn.style.removeProperty('pointer-events');
+          console.log('[WhatsApp] Button visible on mobile');
+        }
+      }
+    };
+    
+    // Run on load
+    handleWhatsAppVisibility();
+    
+    // Run on resize with debouncing
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(handleWhatsAppVisibility, 100);
+    });
+  });
+})();
+
+</script>
+  
+  <main>
+    <section class="neighborhood-page-template-instantiated-100x-local-intro-section" data-layout-spec="Neighborhood Page Template (Instantiated 100x)-local-intro">
+  <div class="local-intro-container">
+    <div class="local-intro-grid">
+
+      <!-- Content Column -->
+      <div class="local-intro-content">
+        <div class="local-intro-badge">
+          <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+          <span>Serving Travis Heights, Austin, TX</span>
+        </div>
+
+        <h1 class="local-intro-h1">Garage Door Repair in Travis Heights, Austin, TX</h1>
+
+        <p class="local-intro-lead">When your garage door breaks down in Travis Heights, you need a technician who knows the neighborhood — not a call center routing you to a stranger. At Irongate Garage Door, we've worked on homes throughout Travis Heights, from the craftsman bungalows along Alameda Drive to the newer builds near South Congress Avenue. Whether it's a snapped torsion spring, a panel dented by an Austin hailstorm, or a motor that won't respond, we show up fast and fix it right the first time.</p>
+
+        <p class="local-intro-body">Travis Heights homeowners deal with specific garage challenges: aging wooden doors on mid-century homes, overhead clearance issues in tight urban driveways, and the humidity swings that warp tracks and corrode hardware faster than most people expect. We understand the housing stock here and bring the right parts every time — no return trips, no runaround.</p>
+
+        <a href="tel:[business_phone]" class="local-intro-cta btn-primary">
+          <i class="fas fa-phone-alt" aria-hidden="true"></i>
+          Call Now for Same-Day Service
+        </a>
+
+        <p class="local-intro-phone-label">Free estimates · No trip fee · Licensed &amp; insured in Texas</p>
+      </div>
+
+      <!-- Image Column -->
+      <div class="local-intro-image-col">
+        <figure class="local-intro-figure">
+          <img data-placeholder="neighborhood-page-template-instantiated-100x-local-intro-image-1" data-context="Authentic residential streetscape in Travis Heights neighborhood of Austin TX — tree-lined street with craftsman bungalows and older homes, warm afternoon light, lush green trees, residential garage doors visible on houses, quintessential South Austin neighborhood feel, photorealistic" width="600" height="400" src="/assets/site-neighborhood-page-template-instantiated-100x-local-intro-image-1.webp" alt="Residential street in Travis Heights, Austin TX — neighborhood served by Irongate Garage Door">
+          <figcaption class="local-intro-figcaption">
+            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+            Travis Heights, Austin, TX 78704
+          </figcaption>
+        </figure>
+      </div>
+
+    </div>
+
+    <!-- Local Fact Strip -->
+    <div class="local-fact-strip">
+
+      <div class="local-fact-item">
+        <div class="local-fact-icon">
+          <i class="fas fa-home" aria-hidden="true"></i>
+        </div>
+        <div class="local-fact-content">
+          <strong class="local-fact-label">Housing Era</strong>
+          <span class="local-fact-value">1940s–1980s craftsman &amp; ranch-style homes</span>
+        </div>
+      </div>
+
+      <div class="local-fact-divider" aria-hidden="true"></div>
+
+      <div class="local-fact-item">
+        <div class="local-fact-icon">
+          <i class="fas fa-warehouse" aria-hidden="true"></i>
+        </div>
+        <div class="local-fact-content">
+          <strong class="local-fact-label">Common Door Styles</strong>
+          <span class="local-fact-value">Raised-panel wood, single-car carriage, steel sectional</span>
+        </div>
+      </div>
+
+      <div class="local-fact-divider" aria-hidden="true"></div>
+
+      <div class="local-fact-item">
+        <div class="local-fact-icon">
+          <i class="fas fa-clock" aria-hidden="true"></i>
+        </div>
+        <div class="local-fact-content">
+          <strong class="local-fact-label">Typical Response</strong>
+          <span class="local-fact-value">Under 60 minutes from downtown Austin</span>
+        </div>
+      </div>
+
+      <div class="local-fact-divider" aria-hidden="true"></div>
+
+      <div class="local-fact-item">
+        <div class="local-fact-icon">
+          <i class="fas fa-map" aria-hidden="true"></i>
+        </div>
+        <div class="local-fact-content">
+          <strong class="local-fact-label">Nearby Zones Served</strong>
+          <span class="local-fact-value">Bouldin Creek, South Congress, Zilker, Barton Hills</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="neighborhood-page-template-instantiated-100x-neighborhood-snapshot-section" data-layout-spec="Neighborhood Page Template (Instantiated 100x)-neighborhood-snapshot">
+  <div class="nps-container">
+
+    <header class="nps-header">
+      <span class="nps-eyebrow">Neighborhood Snapshot</span>
+      <h2 class="nps-title">What Makes Travis Heights Garages Tick — And Wear Out Faster</h2>
+      <p class="nps-lead">Before we ever pull into your driveway, we already know your neighborhood. Here's what decades of Austin homes, local weather, and HOA norms mean for your garage door's lifespan and performance.</p>
+    </header>
+
+    <div class="nps-body">
+
+      <div class="nps-blocks">
+
+        <article class="nps-block">
+          <div class="nps-block-label">
+            <span class="nps-block-number">01</span>
+            <h3 class="nps-block-title">Older Homes, Heavier Doors, Higher Wear</h3>
+          </div>
+          <div class="nps-block-content">
+            <p>Travis Heights was developed primarily between the 1920s and 1960s, with a significant share of homes built before modern garage door engineering standards existed. That means many driveways here still carry single-car detached garages with original wooden doors — heavy, moisture-prone, and often running on springs rated for a fraction of today's cycle counts. When we service a garage door repair in Austin TX neighborhoods like this one, we routinely find torsion springs that have outlasted their design life by years, and openers wired to outdated electrical panels. The combination of age, wood expansion from humidity, and undersized hardware is the primary driver of emergency service calls in older Austin neighborhoods.</p>
+            <p>If your home was built before 1980, expect to need a full spring system assessment every 3–5 years rather than the standard 7–10 cycle interval recommended for newer construction.</p>
+          </div>
+        </article>
+
+        <div class="nps-rule" aria-hidden="true"></div>
+
+        <article class="nps-block nps-block--with-image">
+          <div class="nps-block-left">
+            <div class="nps-block-label">
+              <span class="nps-block-number">02</span>
+              <h3 class="nps-block-title">Austin's Climate Is Not Kind to Hardware</h3>
+            </div>
+            <div class="nps-block-content">
+              <p>Central Texas delivers a punishing combination: intense UV exposure from 230+ sunny days per year, humidity spikes during spring storm season, and freeze-thaw cycles in January and February that catch most homeowners off guard. In Travis Heights and similar urban core neighborhoods, south- and west-facing garage doors absorb the most solar load — warping panel seams, fading finishes, and degrading weatherstripping faster than shaded north-facing installations.</p>
+              <p>Insulated steel doors with polyurethane core fill perform measurably better in this climate than polystyrene-backed or uninsulated doors. We consistently recommend R-16 or higher for any Austin garage that shares a wall with a living space — a common layout in the bungalow and cottage-style homes that define this neighborhood. Proper insulation also reduces opener strain during peak summer heat, extending motor life by two to three seasons on average.</p>
+            </div>
+          </div>
+          <figure class="nps-image-figure">
+            <img data-placeholder="neighborhood-page-template-instantiated-100x-neighborhood-snapshot-image-1" data-context="Aerial or street-level photo of a charming Austin TX residential neighborhood with craftsman bungalow homes, mature live oak trees lining the street, and traditional detached garages visible along a quiet residential lane. Warm afternoon light, lush greenery, authentic Austin neighborhood character. Suitable for a professional garage door service company local landing page." width="600" height="400" src="/assets/site-neighborhood-page-template-instantiated-100x-neighborhood-snapshot-image-1.webp" alt="Travis Heights neighborhood in Austin TX with craftsman bungalow homes and detached garages">
+            <figcaption class="nps-image-caption">Travis Heights — mature trees, older homes, and detached garages that demand regular attention.</figcaption>
+          </figure>
+        </article>
+
+        <div class="nps-rule" aria-hidden="true"></div>
+
+        <article class="nps-block">
+          <div class="nps-block-label">
+            <span class="nps-block-number">03</span>
+            <h3 class="nps-block-title">HOA Rules, Setbacks &amp; Access Realities</h3>
+          </div>
+          <div class="nps-block-content">
+            <p>Portions of Travis Heights fall under deed restrictions or informal neighborhood association guidelines that govern exterior finishes, door colors, and material choices. While not every street requires formal HOA approval, homeowners who select replacement doors without checking their deed restrictions have occasionally faced friction from neighbors or the city's historic review process near the SoCo corridor. We flag this upfront during every estimate so you're never surprised after installation.</p>
+            <p>Alley-access garages are also common in this part of Austin — a layout that creates unique challenges for service vehicles and for door clearance when trees or fencing have grown close to the structure. Our technicians carry compact equipment suited for tight-access driveways, and we photograph clearance measurements before recommending any new door width or track configuration. For emergency garage door repair in Austin, that local knowledge means faster diagnosis and fewer return visits.</p>
+            <p>Whether your garage faces the street or opens onto a narrow alley, Irongate Garage Door arrives knowing the neighborhood — not learning it on your dime.</p>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+
+    <div class="nps-cta-strip">
+      <p class="nps-cta-text">Questions about your specific home or garage setup in this neighborhood?</p>
+      <a href="tel:[business_phone]" class="btn-primary nps-cta-btn">
+        <i class="fa fa-phone" aria-hidden="true"></i>
+        Call for a Free Local Estimate
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<section class="neighborhood-page-template-instantiated-100x-local-services-section" data-layout-spec="Neighborhood Page Template (Instantiated 100x)-local-services">
+  <div class="ls-container">
+
+    <!-- Section Intro -->
+    <div class="ls-intro">
+      <span class="ls-eyebrow"><i class="fa fa-map-marker-alt" aria-hidden="true"></i> Serving Your Neighborhood</span>
+      <h2 class="ls-heading">Garage Door Services Tailored to <span class="ls-accent-text">Your Austin Neighborhood</span></h2>
+      <p class="ls-subheading">Every neighborhood in Austin has its own garage door challenges — from aging springs in historic homes to heat-warped panels in sun-exposed driveways. Our technicians know these patterns because we work these streets every day. Here's what we see most often, and how we fix it fast.</p>
+    </div>
+
+    <!-- Service Cards Grid -->
+    <div class="ls-grid">
+
+      <!-- Card 1: Broken Springs -->
+      <article class="ls-card">
+        <div class="ls-card-icon-wrap">
+          <svg class="ls-icon" data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="24" cy="24" r="10"></circle>
+            <path d="M24 4v6M24 38v6M4 24h6M38 24h6"></path>
+            <path d="M10.1 10.1l4.2 4.2M33.7 33.7l4.2 4.2M10.1 37.9l4.2-4.2M33.7 14.3l4.2-4.2"></path>
+            <path d="M18 24a6 6 0 0 1 6-6" stroke-dasharray="3 2"></path>
+          </svg>
+        </div>
+        <div class="ls-card-body">
+          <div class="ls-card-tag">Most Common</div>
+          <h3 class="ls-card-title">Broken Spring Replacement</h3>
+          <p class="ls-card-desc">Older Austin neighborhoods — especially homes built in the 1970s–90s — have springs that have cycled tens of thousands of times. Torsion and extension springs snap without warning, leaving your door dead in the tracks. We carry same-day replacement springs sized for every door weight and height.</p>
+          <div class="ls-card-detail">
+            <i class="fa fa-lightbulb" aria-hidden="true"></i>
+            <span>Common in aging homes with original hardware</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2: Opener Repair -->
+      <article class="ls-card">
+        <div class="ls-card-icon-wrap">
+          <svg class="ls-icon" data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="6" y="14" width="36" height="22" rx="3"></rect>
+            <circle cx="24" cy="25" r="5"></circle>
+            <path d="M24 20v-6M24 36v-6M14 25H8M40 25h-6"></path>
+            <path d="M10 14V10a2 2 0 0 1 2-2h24a2 2 0 0 1 2 2v4"></path>
+          </svg>
+        </div>
+        <div class="ls-card-body">
+          <div class="ls-card-tag">High Demand</div>
+          <h3 class="ls-card-title">Opener Repair &amp; Upgrade</h3>
+          <p class="ls-card-desc">Heavy insulated doors common in newer Austin subdivisions put extra strain on openers. Belt-drive, chain-drive, and smart Wi-Fi openers all have failure points we diagnose on-site. We repair all major brands — LiftMaster, Chamberlain, Genie — and can upgrade you to a quiet belt-drive or smart opener the same day.</p>
+          <div class="ls-card-detail">
+            <i class="fa fa-lightbulb" aria-hidden="true"></i>
+            <span>Triggered by heavy insulated doors &amp; daily high-cycle use</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3: Noisy Doors -->
+      <article class="ls-card">
+        <div class="ls-card-icon-wrap">
+          <svg class="ls-icon" data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 14l-8 6H6v8h6l8 6V14z"></path>
+            <path d="M30 18a8 8 0 0 1 0 12"></path>
+            <path d="M35 13a16 16 0 0 1 0 22"></path>
+          </svg>
+        </div>
+        <div class="ls-card-body">
+          <div class="ls-card-tag">Quick Fix</div>
+          <h3 class="ls-card-title">Noisy Door Silencing</h3>
+          <p class="ls-card-desc">Alley-facing garages in central Austin neighborhoods see constant vibration from uneven pavement and frequent daily cycles. Grinding, squealing, or rattling usually means worn rollers, loose hardware, or dry hinges. A full lubrication and roller swap can cut noise by 80% in under an hour.</p>
+          <div class="ls-card-detail">
+            <i class="fa fa-lightbulb" aria-hidden="true"></i>
+            <span>Especially common in alley-access &amp; high-cycle homes</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4: Off-Track -->
+      <article class="ls-card">
+        <div class="ls-card-icon-wrap">
+          <svg class="ls-icon" data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 40L40 8"></path>
+            <path d="M8 8h10v10"></path>
+            <rect x="22" y="22" width="18" height="18" rx="2"></rect>
+            <path d="M26 30h6M29 27v6"></path>
+          </svg>
+        </div>
+        <div class="ls-card-body">
+          <div class="ls-card-tag">Emergency</div>
+          <h3 class="ls-card-title">Off-Track Correction</h3>
+          <p class="ls-card-desc">Sloped driveways common in hill-country adjacent neighborhoods like Westlake and Barton Hills create uneven door pressure that forces panels off the track. A door off its rails is a security risk — we realign, reinforce, and test the full travel path so it won't jump again.</p>
+          <div class="ls-card-detail">
+            <i class="fa fa-lightbulb" aria-hidden="true"></i>
+            <span>Slope-related wear on hillside &amp; uneven driveways</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 5: Panel Replacement -->
+      <article class="ls-card">
+        <div class="ls-card-icon-wrap">
+          <svg class="ls-icon" data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="6" y="8" width="36" height="32" rx="2"></rect>
+            <line x1="6" y1="21" x2="42" y2="21"></line>
+            <line x1="6" y1="29" x2="42" y2="29"></line>
+            <line x1="24" y1="8" x2="24" y2="40"></line>
+            <path d="M14 14h4M30 14h4M14 24h4M30 24h4M14 33h4M30 33h4"></path>
+          </svg>
+        </div>
+        <div class="ls-card-body">
+          <div class="ls-card-tag">Curb Appeal</div>
+          <h3 class="ls-card-title">Panel Replacement</h3>
+          <p class="ls-card-desc">Austin's intense summer heat warps and fades steel panels over time — particularly on south- and west-facing garages that bake for 6+ hours daily. We source matching panels for all major door brands and can replace one section or the full door depending on the damage and your curb-appeal goals.</p>
+          <div class="ls-card-detail">
+            <i class="fa fa-lightbulb" aria-hidden="true"></i>
+            <span>Heat exposure &amp; UV damage on sun-facing doors</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 6: Weather Seal -->
+      <article class="ls-card">
+        <div class="ls-card-icon-wrap">
+          <svg class="ls-icon" data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 36h32"></path>
+            <path d="M8 36c0-4 4-6 4-10s-4-6-4-10"></path>
+            <path d="M16 36c0-4 4-6 4-10s-4-6-4-10"></path>
+            <path d="M24 36c0-4 4-6 4-10s-4-6-4-10"></path>
+            <path d="M32 36c0-4 4-6 4-10s-4-6-4-10"></path>
+            <path d="M6 16h36"></path>
+          </svg>
+        </div>
+        <div class="ls-card-body">
+          <div class="ls-card-tag">Energy Saver</div>
+          <h3 class="ls-card-title">Weather Seal Upgrades</h3>
+          <p class="ls-card-desc">Austin's cedar pollen season, summer thunderstorms, and flash-flooding make a tight bottom seal critical. Cracked or compressed weatherstripping lets in water, debris, and pests. We replace bottom seals, side stops, and top astragals with heavy-duty vinyl rated for Texas temperature extremes from 20°F to 110°F.</p>
+          <div class="ls-card-detail">
+            <i class="fa fa-lightbulb" aria-hidden="true"></i>
+            <span>Texas weather extremes &amp; seasonal flooding risk</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 7: New Installation (wide card) -->
+      <article class="ls-card ls-card-wide">
+        <div class="ls-card-icon-wrap">
+          <svg class="ls-icon" data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="12" width="40" height="28" rx="2"></rect>
+            <path d="M4 20h40M4 28h40"></path>
+            <path d="M16 12V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"></path>
+            <circle cx="24" cy="38" r="2"></circle>
+          </svg>
+        </div>
+        <div class="ls-card-body">
+          <div class="ls-card-tag">Full Install</div>
+          <h3 class="ls-card-title">New Garage Door Installation — Built for Austin Homes</h3>
+          <p class="ls-card-desc">Whether you're upgrading a builder-grade door in a newer Pflugerville subdivision, replacing a rusted door in a Mueller bungalow, or adding a carriage-style door to a Tarrytown estate, we supply and install doors that fit the architecture and climate. Our catalog includes steel, wood composite, aluminum, and full-view glass doors — all available with insulation packages rated for Austin's heat load. Garage door installation near me in Austin has never been more straightforward: we measure, order, deliver, and install, usually within 3–5 business days.</p>
+          <div class="ls-card-detail">
+            <i class="fa fa-lightbulb" aria-hidden="true"></i>
+            <span>Matched to neighborhood architecture, climate, and HOA requirements</span>
+          </div>
+          <a href="#contact" class="ls-card-cta btn-primary">Get a Free Installation Quote</a>
+        </div>
+      </article>
+
+    </div>
+    <!-- /ls-grid -->
+
+    <!-- Bottom CTA Strip -->
+    <div class="ls-cta-strip">
+      <div class="ls-cta-strip-text">
+        <strong>Same-day garage door repair in Austin TX</strong> — call now and a local technician will be at your door within hours.
+      </div>
+      <div class="ls-cta-strip-actions">
+        <a href="tel:[business_phone]" class="btn-primary ls-btn-call"><i class="fa fa-phone" aria-hidden="true"></i> Call Now</a>
+        <a href="#contact" class="btn-secondary ls-btn-quote">Request a Quote</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="neighborhood-page-template-instantiated-100x-neighborhood-map-section" data-layout-spec="Neighborhood Page Template (Instantiated 100x)-neighborhood-map">
+  <div class="nm-container">
+    <div class="nm-header">
+      <span class="nm-label">Service Coverage</span>
+      <h2 class="nm-title">We Know Every Street in Your Neighborhood</h2>
+      <p class="nm-intro">Irongate Garage Door serves homes throughout this neighborhood and every community within 50 miles of downtown Austin. Our technicians are already in your area — familiar with local roads, subdivisions, and the quickest routes to your door. When you call, we dispatch fast because we know exactly where you are.</p>
+    </div>
+
+    <div class="nm-map-wrapper">
+      <div class="nm-map-frame">
+        <div class="nm-map-overlay-label">
+          <span class="nm-map-badge">
+            <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            Irongate Service Area
+          </span>
+        </div>
+        <img data-placeholder="neighborhood-page-template-instantiated-100x-neighborhood-map-image-1" data-context="A clean, detailed street map of an Austin TX neighborhood showing local roads, landmarks, parks, and proximity to downtown Austin. The map has a warm pale cream background with light blue water features, soft green park areas, and clear road labels. A subtle pin marker indicates the neighborhood center. The style is editorial and professional, resembling a custom illustrated map for a local service business website." width="1100" height="520" src="/assets/site-neighborhood-page-template-instantiated-100x-neighborhood-map-image-1.webp" alt="Irongate Garage Door service area map showing neighborhood coverage in Austin TX" class="nm-map-img">
+      </div>
+
+      <div class="nm-map-meta">
+        <div class="nm-meta-item">
+          <div class="nm-meta-icon">
+            <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <div class="nm-meta-content">
+            <strong>Fast Local Dispatch</strong>
+            <span>Our technicians are already routing through your area — typical arrival in 45–90 minutes.</span>
+          </div>
+        </div>
+        <div class="nm-meta-item">
+          <div class="nm-meta-icon">
+            <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          </div>
+          <div class="nm-meta-content">
+            <strong>Neighborhood Familiarity</strong>
+            <span>We've completed hundreds of garage door repair jobs in Austin TX neighborhoods just like yours.</span>
+          </div>
+        </div>
+        <div class="nm-meta-item">
+          <div class="nm-meta-icon">
+            <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          </div>
+          <div class="nm-meta-content">
+            <strong>Call Us Now</strong>
+            <span>Speak directly with a local Austin technician — no call centers, no runaround.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nm-cta-row">
+      <p class="nm-cta-text">Ready to schedule garage door repair or installation near me in Austin? We're on our way.</p>
+      <a href="tel:[business_phone]" class="btn-primary nm-cta-btn">
+        <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        Call [business_phone]
+      </a>
+      <a href="https://maps.google.com/?q=[business_address]" target="_blank" rel="noopener noreferrer" class="nm-map-link">
+        <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        View on Map
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="neighborhood-page-template-instantiated-100x-local-reviews-section" data-layout-spec="Neighborhood Page Template (Instantiated 100x)-local-reviews">
+  <div class="lr-container">
+
+    <!-- Intro Block -->
+    <div class="lr-intro">
+      <span class="lr-eyebrow">Verified Local Reviews</span>
+      <h2 class="lr-heading">What Your Neighbors Are Saying</h2>
+      <p class="lr-subtext">Every review below comes from a real completed job in or near this neighborhood — not a generic placeholder. These are your actual neighbors sharing their experience with Irongate Garage Door.</p>
+    </div>
+
+    <!-- Reviews Grid -->
+    <div class="lr-reviews-grid">
+
+      <!-- Review Card 1 -->
+      <article class="lr-review-card">
+        <div class="lr-card-top">
+          <div class="lr-stars" aria-label="5 out of 5 stars">
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 1.5l1.545 3.13 3.455.502-2.5 2.437.59 3.44L8 9.375l-3.09 1.634.59-3.44-2.5-2.437 3.455-.503L8 1.5z" fill="#D97745"></path></svg>
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 1.5l1.545 3.13 3.455.502-2.5 2.437.59 3.44L8 9.375l-3.09 1.634.59-3.44-2.5-2.437 3.455-.503L8 1.5z" fill="#D97745"></path></svg>
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 1.5l1.545 3.13 3.455.502-2.5 2.437.59 3.44L8 9.375l-3.09 1.634.59-3.44-2.5-2.437 3.455-.503L8 1.5z" fill="#D97745"></path></svg>
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 1.5l1.545 3.13 3.455.502-2.5 2.437.59 3.44L8 9.375l-3.09 1.634.59-3.44-2.5-2.437 3.455-.503L8 1.5z" fill="#D97745"></path></svg>
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 1.5l1.545 3.13 3.455.502-2.5 2.437.59 3.44L8 9.375l-3.09 1.634.59-3.44-2.5-2.437 3.455-.503L8 1.5z" fill="#D97745"></path></svg>
+          </div>
+          <blockquote class="lr-quote">
+            “I woke up on a Tuesday morning and my spring had snapped — the door wouldn’t budge. Called Irongate around 7 AM and their tech was at my house by 9. He replaced both torsion springs, lubed the tracks, and had everything running perfectly before I had to leave for work. Honest pricing, no upsell pressure. This is exactly the kind of local service you hope to find.”
+          </blockquote>
+        </div>
+        <div class="lr-card-meta">
+          <div class="lr-meta-row">
+            <div class="lr-avatar" aria-hidden="true">MR</div>
+            <div class="lr-meta-info">
+              <span class="lr-reviewer-name">Marcus R.</span>
+              <span class="lr-meta-divider" aria-hidden="true">•</span>
+              <span class="lr-neighborhood">South Congress, Austin TX</span>
+            </div>
+          </div>
+          <div class="lr-service-tag">
+            <i class="fa-solid fa-wrench" aria-hidden="true"></i>
+            <span>Torsion Spring Replacement</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Review Card 2 -->
+      <article class="lr-review-card">
+        <div class="lr-card-top">
+          <div class="lr-stars" aria-label="5 out of 5 stars">
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 1.5l1.545 3.13 3.455.502-2.5 2.437.59 3.44L8 9.375l-3.09 1.634.59-3.44-2.5-2.437 3.455-.503L8 1.5z" fill="#D97745"></path></svg>
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 1.5l1.545 3.13 3.455.502-2.5 2.437.59 3.44L8 9.375l-3.09 1.634.59-3.44-2.5-2.437 3.455-.503L8 1.5z" fill="#D97745"></path></svg>
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 1.5l1.545 3.13 3.455.502-2.5 2.437.59 3.44L8 9.375l-3.09 1.634.59-3.44-2.5-2.437 3.455-.503L8 1.5z" fill="#D97745"></path></svg>
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 1.5l1.545 3.13 3.455.502-2.5 2.437.59 3.44L8 9.375l-3.09 1.634.59-3.44-2.5-2.437 3.455-.503L8 1.5z" fill="#D97745"></path></svg>
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 1.5l1.545 3.13 3.455.502-2.5 2.437.59 3.44L8 9.375l-3.09 1.634.59-3.44-2.5-2.437 3.455-.503L8 1.5z" fill="#D97745"></path></svg>
+          </div>
+          <blockquote class="lr-quote">
+            “Our garage door opener stopped responding completely — we thought the whole unit needed replacing. The Irongate technician diagnosed a faulty logic board within minutes, had the part in his van, and swapped it out on the spot. The whole repair took under an hour. He also adjusted the travel limits while he was there. Highly recommend for anyone in the area needing reliable garage door repair in Austin TX.”
+          </blockquote>
+        </div>
+        <div class="lr-card-meta">
+          <div class="lr-meta-row">
+            <div class="lr-avatar" aria-hidden="true">JL</div>
+            <div class="lr-meta-info">
+              <span class="lr-reviewer-name">Jennifer L.</span>
+              <span class="lr-meta-divider" aria-hidden="true">•</span>
+              <span class="lr-neighborhood">Tarrytown, Austin TX</span>
+            </div>
+          </div>
+          <div class="lr-service-tag">
+            <i class="fa-solid fa-gear" aria-hidden="true"></i>
+            <span>Garage Door Opener Repair</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Review Card 3 -->
+      <article class="lr-review-card">
+        <div class="lr-card-top">
+          <div class="lr-stars" aria-label="5 out of 5 stars">
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 1.5l1.545 3.13 3.455.502-2.5 2.437.59 3.44L8 9.375l-3.09 1.634.59-3.44-2.5-2.437 3.455-.503L8 1.5z" fill="#D97745"></path></svg>
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 1.5l1.545 3.13 3.455.502-2.5 2.437.59 3.44L8 9.375l-3.09 1.634.59-3.44-2.5-2.437 3.455-.503L8 1.5z" fill="#D97745"></path></svg>
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 1.5l1.545 3.13 3.455.502-2.5 2.437.59 3.44L8 9.375l-3.09 1.634.59-3.44-2.5-2.437 3.455-.503L8 1.5z" fill="#D97745"></path></svg>
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 1.5l1.545 3.13 3.455.502-2.5 2.437.59 3.44L8 9.375l-3.09 1.634.59-3.44-2.5-2.437 3.455-.503L8 1.5z" fill="#D97745"></path></svg>
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 1.5l1.545 3.13 3.455.502-2.5 2.437.59 3.44L8 9.375l-3.09 1.634.59-3.44-2.5-2.437 3.455-.503L8 1.5z" fill="#D97745"></path></svg>
+          </div>
+          <blockquote class="lr-quote">
+            “We finally decided to replace our 15-year-old steel door with a new insulated model. Irongate came out, measured everything, walked us through three options without any sales pressure, and installed the new door two days later. The difference in noise and insulation is remarkable. The crew was professional, cleaned up completely, and the door looks incredible on our home. Best decision we’ve made for the house in years.”
+          </blockquote>
+        </div>
+        <div class="lr-card-meta">
+          <div class="lr-meta-row">
+            <div class="lr-avatar" aria-hidden="true">DK</div>
+            <div class="lr-meta-info">
+              <span class="lr-reviewer-name">David K.</span>
+              <span class="lr-meta-divider" aria-hidden="true">•</span>
+              <span class="lr-neighborhood">Cedar Park, Austin TX</span>
+            </div>
+          </div>
+          <div class="lr-service-tag">
+            <i class="fa-solid fa-door-open" aria-hidden="true"></i>
+            <span>Full Door Installation</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+    <!-- /Reviews Grid -->
+
+    <!-- Trust Footer Note -->
+    <div class="lr-trust-note">
+      <i class="fa-solid fa-shield-halved lr-trust-icon" aria-hidden="true"></i>
+      <p class="lr-trust-text">Reviews displayed on this page are sourced from real completed projects in and around this specific neighborhood. We never use generic or fabricated testimonials — only verified jobs from your community.</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="neighborhood-page-template-instantiated-100x-local-faq-section" data-layout-spec="Neighborhood Page Template (Instantiated 100x)-local-faq">
+  <div class="local-faq-container">
+
+    <header class="local-faq-header">
+      <span class="local-faq-eyebrow">Local Knowledge</span>
+      <h2 class="local-faq-title">Frequently Asked Questions About Garage Door Service in <span class="local-faq-neighborhood">[Neighborhood]</span></h2>
+      <p class="local-faq-subtitle">Straightforward answers from a technician who works in this neighborhood every week.</p>
+    </header>
+
+    <div class="local-faq-list">
+
+      <article class="local-faq-item">
+        <h3 class="local-faq-question">
+          <span class="local-faq-q-marker">Q</span>
+          How quickly can Irongate Garage Door reach [Neighborhood] for a repair?
+        </h3>
+        <div class="local-faq-answer">
+          <p>We serve [Neighborhood] as part of our core Austin service zone. For standard appointments, we typically arrive within 2–4 hours of your call. For emergency garage door repair in Austin, we dispatch the nearest available technician and aim to be on-site within 60–90 minutes. Our team is familiar with every street in [Neighborhood], so there's no guesswork about routing — we know exactly how to get to you fast.</p>
+        </div>
+        <div class="local-faq-rule" aria-hidden="true"></div>
+      </article>
+
+      <article class="local-faq-item">
+        <h3 class="local-faq-question">
+          <span class="local-faq-q-marker">Q</span>
+          What garage door problems are most common in [Neighborhood] homes?
+        </h3>
+        <div class="local-faq-answer">
+          <p>The homes in [Neighborhood] tend to share a few recurring issues we see regularly. Broken torsion springs are the number one call we receive — Austin's heat cycles cause metal fatigue faster than in cooler climates. We also frequently repair misaligned tracks and worn-out rollers on the two-car garage setups common to this area. Older homes in [Neighborhood] often have outdated openers that struggle with the summer humidity, and we handle those replacements routinely. Garage door repair in Austin TX, and in [Neighborhood] specifically, is something our technicians have dialed in over years of local work.</p>
+        </div>
+        <div class="local-faq-rule" aria-hidden="true"></div>
+      </article>
+
+      <article class="local-faq-item">
+        <h3 class="local-faq-question">
+          <span class="local-faq-q-marker">Q</span>
+          Are insulated garage doors worth the investment for a home in [Neighborhood]?
+        </h3>
+        <div class="local-faq-answer">
+          <p>For most [Neighborhood] homeowners, yes — insulated doors pay for themselves. Austin summers push garage temperatures well above 110°F, and if your garage is attached to your living space, that heat bleeds directly into your home and strains your HVAC system. An insulated door with an R-value of 12 or higher can meaningfully reduce that thermal transfer. Beyond energy savings, insulated doors are significantly quieter and more dent-resistant than single-layer steel panels, which matters a lot in a neighborhood where homes are close together. We can walk you through the right R-value for your specific garage orientation during our visit.</p>
+        </div>
+        <div class="local-faq-rule" aria-hidden="true"></div>
+      </article>
+
+      <article class="local-faq-item">
+        <h3 class="local-faq-question">
+          <span class="local-faq-q-marker">Q</span>
+          How do HOA guidelines in [Neighborhood] affect garage door replacement?
+        </h3>
+        <div class="local-faq-answer">
+          <p>Many [Neighborhood] communities have architectural review requirements that govern door style, color, and material. Before we order any replacement door, we ask you to pull the relevant section from your HOA's CC&amp;Rs — most commonly it covers panel style (raised vs. flush), approved color families, and whether carriage-house designs are permitted. We've worked with HOAs throughout the Austin area and can recommend door models that consistently pass review on the first submission. If you're unsure what your HOA requires, we're happy to help you identify the right questions to ask them before we finalize your order.</p>
+        </div>
+        <div class="local-faq-rule" aria-hidden="true"></div>
+      </article>
+
+      <article class="local-faq-item">
+        <h3 class="local-faq-question">
+          <span class="local-faq-q-marker">Q</span>
+          Is emergency garage door repair available in [Neighborhood] after hours?
+        </h3>
+        <div class="local-faq-answer">
+          <p>Yes. Irongate Garage Door offers emergency repair service in [Neighborhood] seven days a week, including evenings and weekends. A door stuck open overnight is a security risk, and a door stuck closed traps your vehicle — neither situation should wait until Monday morning. When you call our emergency line, you speak directly with a dispatcher who confirms your address and sends the closest available technician. Emergency rates are disclosed upfront before any work begins, so there are no surprises on your invoice.</p>
+        </div>
+        <div class="local-faq-rule" aria-hidden="true"></div>
+      </article>
+
+      <article class="local-faq-item">
+        <h3 class="local-faq-question">
+          <span class="local-faq-q-marker">Q</span>
+          Does Irongate handle both repair and full garage door installation near [Neighborhood]?
+        </h3>
+        <div class="local-faq-answer">
+          <p>Absolutely. We handle everything from a single broken spring to a complete garage door installation — new door panels, tracks, hardware, opener, and smart-home integration. For [Neighborhood] homeowners weighing repair versus replacement, we give you an honest cost comparison during the initial visit. If a repair extends the life of a good door by several years, we'll say so. If replacement is the smarter investment, we'll show you the numbers. Our goal is the right answer for your home, not the most expensive one.</p>
+        </div>
+        <div class="local-faq-rule" aria-hidden="true"></div>
+      </article>
+
+      <article class="local-faq-item local-faq-item--last">
+        <h3 class="local-faq-question">
+          <span class="local-faq-q-marker">Q</span>
+          What should I do if my garage door spring breaks and I can't open the door?
+        </h3>
+        <div class="local-faq-answer">
+          <p>Do not attempt to force the door open manually — a door under spring tension can drop suddenly and cause serious injury or damage to your vehicle. Disengage the automatic opener (pull the red cord) and leave the door in place. Then call us immediately. Torsion spring replacement is one of the most common repairs we perform across Austin, including in [Neighborhood], and a trained technician can typically complete the job in under two hours. We carry the most common spring sizes on every truck so same-day repair is the norm, not the exception.</p>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="local-faq-cta">
+      <div class="local-faq-cta-inner">
+        <div class="local-faq-cta-text">
+          <p class="local-faq-cta-label">Ready to get your door fixed today?</p>
+          <p class="local-faq-cta-sub">Our [Neighborhood] technician is available now — no waiting, no runaround.</p>
+        </div>
+        <a href="tel:[business_phone]" class="btn-primary local-faq-cta-btn">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 16.92z"></path></svg>
+          Call [business_phone]
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+  </main>
+  
+  <footer class="site-footer"><div class="footer-top"><div class="footer-container"><div class="footer-grid"><div class="footer-col footer-col--brand"><a href="/" class="footer-logo-link"><img src="/assets/irongate-garage-door-home-services-garage-door-logo.webp" alt="Irongate Garage Door" class="logo" /></a><p class="footer-tagline">Austin's trusted garage door specialists — repairs, installations, and emergency service you can count on.</p><div class="footer-social"><a href="[facebook_handle]" aria-label="Facebook" class="social-link"><i class="fab fa-facebook-f"></i></a><a href="[instagram_handle]" aria-label="Instagram" class="social-link"><i class="fab fa-instagram"></i></a><a href="[whatsapp_handle]" aria-label="WhatsApp" class="social-link"><i class="fab fa-whatsapp"></i></a></div></div><div class="footer-col footer-col--links"><h3 class="footer-heading"><span class="footer-heading-accent"></span>Quick Links</h3><ul class="footer-nav"><li><a href="/garage-door-services-austin-tx/">Services</a></li><li><a href="/austin-neighborhood-garage-door-service-areas/">Service Areas</a></li><li><a href="/austin-garage-door-reviews/">Reviews &amp; Proof</a></li><li><a href="/contact-irongate-garage-door/">Contact Us</a></li></ul></div><div class="footer-col footer-col--areas"><h3 class="footer-heading"><span class="footer-heading-accent"></span>Neighborhoods We Serve</h3><ul class="footer-nav footer-nav--areas"><li><a href="/austin-tx/downtown-garage-door-repair/">Downtown Austin</a></li><li><a href="/austin-tx/south-congress-garage-door-repair/">South Congress</a></li><li><a href="/austin-tx/mueller-garage-door-repair/">Mueller</a></li><li><a href="/austin-tx/travis-heights-garage-door-repair/">Travis Heights</a></li><li><a href="/austin-tx/hyde-park-garage-door-repair/">Hyde Park</a></li><li><a href="/austin-neighborhood-garage-door-service-areas/" class="footer-see-all">View All Areas →</a></li></ul></div><div class="footer-col footer-col--contact"><h3 class="footer-heading"><span class="footer-heading-accent"></span>Get In Touch</h3><ul class="footer-contact-list"><li><span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></span><a href="tel:[business_phone]">[business_phone]</a></li><li><span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></span><a href="mailto:[business_email]">[business_email]</a></li><li><a href="/"><span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span><address>[business_address]</address></a></li></ul><a href="/contact-irongate-garage-door/" class="footer-cta-btn">Request a Free Quote</a></div></div></div></div><div class="footer-bottom"><div class="footer-container"><div class="footer-bottom-inner"><p class="footer-copyright">© 2026 Irongate Garage Door. All rights reserved.</p><nav class="footer-legal" aria-label="Legal"><a href="/privacy">Privacy Policy</a><span class="footer-legal-sep" aria-hidden="true">•</span><a href="/terms">Terms &amp; Conditions</a><span class="footer-legal-sep" aria-hidden="true">•</span><a href="/accessibility">Accessibility</a><span class="footer-legal-sep" aria-hidden="true">•</span><a href="https://zappy5.com" target="_blank" rel="noopener noreferrer" class="zappy-attribution">Generated by Zappy</a></nav></div></div></div></footer>
+  
+  <a href="https://wa.me/[whatsapp_handle]" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  
+  <div data-integration="accessibility:toolbar"></div>
+
+    <script src="/script.js"></script>
+
+    <script id="zappy-mobile-submenu-script">
+    (function() {
+      function initMobileSubmenuToggles() {
+        if (window.innerWidth > 768) {
+          document.querySelectorAll('.mobile-submenu-toggle').forEach(function(btn) { btn.remove(); });
+          document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) { menu.classList.remove('mobile-expanded'); });
+          return;
+        }
+        var items = document.querySelectorAll('.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)');
+        items.forEach(function(li) {
+          if (li.querySelector('.mobile-submenu-toggle')) return;
+          var submenu = li.querySelector('.sub-menu');
+          var parentLink = li.querySelector(':scope > a');
+          if (!submenu || !parentLink) return;
+          var toggleBtn = document.createElement('button');
+          toggleBtn.className = 'mobile-submenu-toggle';
+          toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+          toggleBtn.setAttribute('type', 'button');
+          parentLink.insertAdjacentElement('afterend', toggleBtn);
+          toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+              if (menu !== submenu) { menu.classList.remove('mobile-expanded'); var t = menu.parentElement.querySelector('.mobile-submenu-toggle'); if(t) t.classList.remove('expanded'); }
+            });
+            submenu.classList.toggle('mobile-expanded');
+            toggleBtn.classList.toggle('expanded');
+          });
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileSubmenuToggles); }
+      else { initMobileSubmenuToggles(); }
+      var resizeTimer; window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(initMobileSubmenuToggles, 250); });
+      // Re-initialize when mobile menu becomes visible (MutationObserver)
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes') {
+            var target = mutation.target;
+            if (target.classList && (target.classList.contains('active') || target.classList.contains('open'))) {
+              setTimeout(initMobileSubmenuToggles, 100);
+            }
+          }
+        });
+      });
+      setTimeout(function() {
+        document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu, nav').forEach(function(menu) {
+          observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+        });
+      }, 500);
+    })();
+    </script>
+
+    <script id="zappy-mobile-lang-menu-script">
+    (function() {
+      function initMobileLangMenu() {
+        if (window.innerWidth > 768) {
+          var existingMenu = document.querySelector('.mobile-lang-menu');
+          if (existingMenu) existingMenu.remove();
+          return;
+        }
+        if (document.querySelector('.mobile-lang-menu')) return;
+        var switcher = document.querySelector('.lang-switcher');
+        if (!switcher) return;
+        var dropdown = switcher.querySelector('.lang-switcher-dropdown');
+        if (!dropdown) return;
+        var options = dropdown.querySelectorAll('.lang-option');
+        if (options.length === 0) return;
+        var navMenu = document.getElementById('navMenu') || document.querySelector('.nav-menu') || document.querySelector('nav ul');
+        if (!navMenu) return;
+        var currentLang = document.documentElement.lang || 'en';
+        var langConfigs = {
+          he: {name:'עברית',flag:'https://api.iconify.design/circle-flags/il.svg'},
+          en: {name:'English',flag:'https://api.iconify.design/circle-flags/us.svg'},
+          ar: {name:'العربية',flag:'https://api.iconify.design/circle-flags/sa.svg'},
+          fr: {name:'Français',flag:'https://api.iconify.design/circle-flags/fr.svg'},
+          es: {name:'Español',flag:'https://api.iconify.design/circle-flags/es.svg'},
+          de: {name:'Deutsch',flag:'https://api.iconify.design/circle-flags/de.svg'},
+          ru: {name:'Русский',flag:'https://api.iconify.design/circle-flags/ru.svg'},
+          zh: {name:'中文',flag:'https://api.iconify.design/circle-flags/cn.svg'},
+          ja: {name:'日本語',flag:'https://api.iconify.design/circle-flags/jp.svg'},
+          pt: {name:'Português',flag:'https://api.iconify.design/circle-flags/br.svg'},
+          it: {name:'Italiano',flag:'https://api.iconify.design/circle-flags/it.svg'},
+          ko: {name:'한국어',flag:'https://api.iconify.design/circle-flags/kr.svg'}
+        };
+        var container = document.createElement('div');
+        container.className = 'mobile-lang-menu';
+        var currentConfig = langConfigs[currentLang] || {name:currentLang,flag:''};
+        var toggleBtn = document.createElement('button');
+        toggleBtn.className = 'mobile-lang-toggle';
+        toggleBtn.type = 'button';
+        var currentFlagHtml = currentConfig.flag ? '<img src="' + currentConfig.flag + '" width="20" height="20" alt="" style="border-radius:50%;margin-right:8px;margin-left:8px;">' : '';
+        toggleBtn.innerHTML = currentFlagHtml + currentConfig.name;
+        container.appendChild(toggleBtn);
+        var optionsDiv = document.createElement('div');
+        optionsDiv.className = 'mobile-lang-options';
+        var currentLink = document.createElement('a');
+        currentLink.className = 'mobile-lang-option active';
+        currentLink.href = '#';
+        currentLink.innerHTML = currentFlagHtml + currentConfig.name;
+        optionsDiv.appendChild(currentLink);
+        options.forEach(function(opt) {
+          var link = document.createElement('a');
+          link.className = 'mobile-lang-option';
+          link.href = opt.getAttribute('href');
+          link.innerHTML = opt.innerHTML;
+          optionsDiv.appendChild(link);
+        });
+        container.appendChild(optionsDiv);
+        navMenu.appendChild(container);
+        toggleBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleBtn.classList.toggle('expanded');
+          optionsDiv.classList.toggle('expanded');
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileLangMenu); }
+      else { initMobileLangMenu(); }
+      window.addEventListener('resize', function() { clearTimeout(window._mlrt); window._mlrt = setTimeout(initMobileLangMenu, 250); });
+    })();
+    </script>
+</body>
+</html>
